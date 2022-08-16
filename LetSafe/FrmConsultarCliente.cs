@@ -16,5 +16,16 @@ namespace LetSafe
         {
             InitializeComponent();
         }
+
+        private void btnAcessar_Click(object sender, EventArgs e)
+        {
+            FrmAreaCliente frmAreaCliente = new FrmAreaCliente();
+            frmAreaCliente.Show();
+        }
+
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
