@@ -16,5 +16,10 @@ namespace LetSafe
         {
             InitializeComponent();
         }
+
+        private void FrmCadastroSinistro_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
