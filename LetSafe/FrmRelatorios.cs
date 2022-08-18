@@ -34,28 +34,8 @@ namespace LetSafe
         private void btnGerar_Click(object sender, EventArgs e)
         {
             var Relatorio = cobRelatorios.Text;
-            dgvRelatorio.DataSource = ResgatarRelatorio(Relatorios[Relatorio][0], Relatorios[Relatorio][1]);            
+            dgvRelatorio.DataSource = DataBaseCon.ResgatarRelatorio(Relatorios[Relatorio][0], Relatorios[Relatorio][1]);            
         }
 
-        private DataTable ResgatarRelatorio(string nomeTabela, string OrderByElemento) {
-            try
-            {
-                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
-                {
-                    DbCon.Open();
-                    var SqlQuerry = $"SELECT * FROM {nomeTabela} ORDER BY {OrderByElemento} DESC";
-                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon)) {
-                        DataTable dt = new DataTable();
-                        DaAdpt.Fill(dt);
-                        return dt;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Falha ao conectar\n" + ex.Message);
-                return null;
-            }
-        }
     }
 }
