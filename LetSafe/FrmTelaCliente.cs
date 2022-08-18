@@ -12,26 +12,50 @@ namespace LetSafe
 {
     public partial class FrmTelaCliente : Form
     {
+        Thread t1;
+
         public FrmTelaCliente()
         {
             InitializeComponent();
         }
 
-        private void btnAbrirSinistro_Click(object sender, EventArgs e)
+        private void btnConsultaCpf_Click(object sender, EventArgs e)
         {
-            FrmConsultarCliente frmConsultarCliente = new FrmConsultarCliente();
-            frmConsultarCliente.Show();
+            this.Close();
+            t1 = new Thread(AbrirFormCpf);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
         }
 
         private void btnOrcamento_Click(object sender, EventArgs e)
         {
-            FrmOrcamento frmOrcamento = new FrmOrcamento();
-            frmOrcamento.Show();
+            this.Close();
+            t1 = new Thread(AbrirFormOrcamento);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
             this.Close();
+            t1 = new Thread(AbrirFormPrincipal);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
+        }
+
+        private void AbrirFormCpf(object obj)
+        {
+            Application.Run(new FrmConsultarCliente());
+        }
+
+        private void AbrirFormOrcamento(object obj)
+        {
+            Application.Run(new FrmOrcamento());
+        }
+
+        private void AbrirFormPrincipal(object obj)
+        {
+            Application.Run(new FrmMenuPrincipal());
         }
     }
 }

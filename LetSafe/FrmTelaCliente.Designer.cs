@@ -28,20 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnAbrirSinistro = new System.Windows.Forms.Button();
+            this.btnConsultaCpf = new System.Windows.Forms.Button();
             this.btnOrcamento = new System.Windows.Forms.Button();
             this.btnRetornar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // btnAbrirSinistro
+            // btnConsultaCpf
             // 
-            this.btnAbrirSinistro.Location = new System.Drawing.Point(310, 154);
-            this.btnAbrirSinistro.Name = "btnAbrirSinistro";
-            this.btnAbrirSinistro.Size = new System.Drawing.Size(181, 34);
-            this.btnAbrirSinistro.TabIndex = 0;
-            this.btnAbrirSinistro.Text = "Consultar por CPF";
-            this.btnAbrirSinistro.UseVisualStyleBackColor = true;
-            this.btnAbrirSinistro.Click += new System.EventHandler(this.btnAbrirSinistro_Click);
+            this.btnConsultaCpf.Location = new System.Drawing.Point(310, 154);
+            this.btnConsultaCpf.Name = "btnConsultaCpf";
+            this.btnConsultaCpf.Size = new System.Drawing.Size(181, 34);
+            this.btnConsultaCpf.TabIndex = 0;
+            this.btnConsultaCpf.Text = "Consultar por CPF";
+            this.btnConsultaCpf.UseVisualStyleBackColor = true;
+            this.btnConsultaCpf.Click += new System.EventHandler(this.btnConsultaCpf_Click);
             // 
             // btnOrcamento
             // 
@@ -70,7 +70,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnRetornar);
             this.Controls.Add(this.btnOrcamento);
-            this.Controls.Add(this.btnAbrirSinistro);
+            this.Controls.Add(this.btnConsultaCpf);
             this.Name = "FrmTelaCliente";
             this.Text = "Cliente";
             this.ResumeLayout(false);
@@ -79,7 +79,7 @@
 
         #endregion
 
-        private Button btnAbrirSinistro;
+        private Button btnConsultaCpf;
         private Button btnOrcamento;
         private Button btnRetornar;
     }

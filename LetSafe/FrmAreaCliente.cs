@@ -12,6 +12,7 @@ namespace LetSafe
 {
     public partial class FrmAreaCliente : Form
     {
+        Thread t1;
         public FrmAreaCliente()
         {
             InitializeComponent();
@@ -19,19 +20,41 @@ namespace LetSafe
 
         private void btnSinistro_Click(object sender, EventArgs e)
         {
-            FrmCadastroSinistro frmCadastroSinistro = new FrmCadastroSinistro();
-            frmCadastroSinistro.Show();
+            this.Close();
+            t1 = new Thread(AbrirFormSinistro);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
         }
 
         private void btnHistorico_Click(object sender, EventArgs e)
         {
-            FrmHistorico frmHistorico = new FrmHistorico();
-            frmHistorico.Show();
+            this.Close();
+            t1 = new Thread(AbrirFormHistorico);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
             this.Close();
+            t1 = new Thread(AbrirFormAnterior);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
+        }
+
+        private void AbrirFormSinistro(object obj)
+        {
+            Application.Run(new FrmCadastroSinistro());
+        }
+
+        private void AbrirFormHistorico(object obj)
+        {
+            Application.Run(new FrmHistorico());
+        }
+
+        private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmConsultarCliente());
         }
     }
 }
