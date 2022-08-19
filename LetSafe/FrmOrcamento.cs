@@ -12,6 +12,8 @@ namespace LetSafe
 {
     public partial class FrmOrcamento : Form
     {
+        Thread t1;
+
         public FrmOrcamento()
         {
             InitializeComponent();
@@ -47,6 +49,19 @@ namespace LetSafe
             decimal valorDoProduto = Convert.ToDecimal(txbValorProduto.Text);
             decimal valorFranquia = valorDoProduto * 0.2m;
             lblValorFranquia.Text = valorFranquia.ToString("C2");
+        }
+
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            t1 = new Thread(AbrirFormAnterior);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
+        }
+
+        private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmTelaCliente());
         }
     }
 }

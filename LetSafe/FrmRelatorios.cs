@@ -13,6 +13,8 @@ namespace LetSafe
 {
     public partial class FrmRelatorios : Form
     {
+        Thread t1;
+
         Dictionary<string, string[]> Relatorios = new(); 
         public FrmRelatorios()
         {
@@ -37,5 +39,17 @@ namespace LetSafe
             dgvRelatorio.DataSource = DataBaseCon.ResgatarRelatorio(Relatorios[Relatorio][0], Relatorios[Relatorio][1]);            
         }
 
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            t1 = new Thread(AbrirFormAnterior);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
+        }
+
+        private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmTelaFunc());
+        }
     }
 }

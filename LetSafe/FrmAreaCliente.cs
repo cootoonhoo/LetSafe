@@ -37,7 +37,7 @@ namespace LetSafe
         private void btnRetornar_Click(object sender, EventArgs e)
         {
             this.Close();
-            t1 = new Thread(AbrirFormAnterior);
+            t1 = new Thread(AbrirFormTelaCliente);
             t1.SetApartmentState(ApartmentState.STA);
             t1.Start();
         }
@@ -52,9 +52,9 @@ namespace LetSafe
             Application.Run(new FrmHistorico());
         }
 
-        private void AbrirFormAnterior(object obj)
+        private void AbrirFormTelaCliente(object obj)
         {
-            Application.Run(new FrmConsultarCliente());
+            Application.Run(new FrmTelaCliente());
         }
     }
 }

@@ -12,11 +12,24 @@ namespace LetSafe
 {
     public partial class FrmHistorico : Form
     {
+        Thread t1;
+
         public FrmHistorico()
         {
             InitializeComponent();
         }
 
-        
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            t1 = new Thread(AbrirFormAnterior);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
+        }
+
+        private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmAreaCliente());
+        }
     }
 }

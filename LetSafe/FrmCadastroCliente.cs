@@ -109,6 +109,8 @@ namespace LetSafe
         {
             this.Close();
             Thread T1 = new Thread(Return);
+            T1.SetApartmentState(ApartmentState.STA);
+            T1.Start();
         }
         private void mtbNome_Enter(object sender, EventArgs e)
         {
