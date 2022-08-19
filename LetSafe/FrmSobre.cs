@@ -12,6 +12,8 @@ namespace LetSafe
 {
     public partial class FrmSobre : Form
     {
+        Thread t1;
+
         public FrmSobre()
         {
             InitializeComponent();
@@ -27,6 +29,9 @@ namespace LetSafe
         private void btnFechar_Click(object sender, EventArgs e)
         {
             this.Close();
+            t1 = new Thread(AbrirFormPrincipal);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
         }
 
         private void linkLbl1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -81,6 +86,11 @@ namespace LetSafe
         {
             linkLbl3.LinkVisited = true;
             System.Diagnostics.Process.Start("https://github.com/MatAmaro");
+        }
+
+        private void AbrirFormPrincipal(object obj)
+        {
+            Application.Run(new FrmMenuPrincipal());
         }
 
     }

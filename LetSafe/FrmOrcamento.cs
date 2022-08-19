@@ -12,6 +12,8 @@ namespace LetSafe
 {
     public partial class FrmOrcamento : Form
     {
+        Thread t1;
+
         public FrmOrcamento()
         {
             InitializeComponent();
@@ -104,6 +106,19 @@ namespace LetSafe
             T1.SetApartmentState(ApartmentState.STA);
             T1.Start();
             this.Close();
+        }
+
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            t1 = new Thread(AbrirFormAnterior);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
+        }
+
+        private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmTelaCliente());
         }
     }
 }

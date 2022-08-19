@@ -12,6 +12,8 @@ namespace LetSafe
 {
     public partial class FrmConsultarCliente : Form
     {
+        Thread t1;
+
         public FrmConsultarCliente()
         {
             InitializeComponent();
@@ -19,13 +21,28 @@ namespace LetSafe
 
         private void btnAcessar_Click(object sender, EventArgs e)
         {
-            FrmAreaCliente frmAreaCliente = new FrmAreaCliente();
-            frmAreaCliente.Show();
+            this.Close();
+            t1 = new Thread(AbrirFormCliente);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
             this.Close();
+            t1 = new Thread(AbrirFormAnterior);
+            t1.SetApartmentState(ApartmentState.STA);
+            t1.Start();
+        }
+
+        private void AbrirFormCliente(object obj)
+        {
+            Application.Run(new FrmAreaCliente());
+        }
+
+        private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmTelaCliente());
         }
     }
 }

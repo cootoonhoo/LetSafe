@@ -112,6 +112,7 @@
             this.lblComplemento.Size = new System.Drawing.Size(96, 19);
             this.lblComplemento.TabIndex = 5;
             this.lblComplemento.Text = "Complemento";
+            this.lblComplemento.Enter += new System.EventHandler(this.lblComplemento_Enter);
             // 
             // lblBairro
             // 
@@ -159,6 +160,7 @@
             this.mtbNome.Name = "mtbNome";
             this.mtbNome.Size = new System.Drawing.Size(205, 23);
             this.mtbNome.TabIndex = 10;
+            this.mtbNome.Enter += new System.EventHandler(this.mtbNome_Enter);
             // 
             // mtbCpf
             // 
@@ -169,7 +171,9 @@
             this.mtbCpf.Size = new System.Drawing.Size(205, 23);
             this.mtbCpf.TabIndex = 11;
             this.mtbCpf.Text = "00000000000";
+            this.mtbCpf.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.mtbCpf_MaskInputRejected);
             this.mtbCpf.Click += new System.EventHandler(this.mtbCpf_Click);
+            this.mtbCpf.Enter += new System.EventHandler(this.mtbCpf_Click);
             this.mtbCpf.Leave += new System.EventHandler(this.mtbCpf_Leave);
             // 
             // mtbEmail
@@ -189,6 +193,7 @@
             this.mtbLogradouro.Name = "mtbLogradouro";
             this.mtbLogradouro.Size = new System.Drawing.Size(205, 23);
             this.mtbLogradouro.TabIndex = 13;
+            this.mtbLogradouro.Enter += new System.EventHandler(this.mtbLogradouro_Enter);
             // 
             // mtbNumero
             // 
@@ -196,6 +201,7 @@
             this.mtbNumero.Name = "mtbNumero";
             this.mtbNumero.Size = new System.Drawing.Size(205, 23);
             this.mtbNumero.TabIndex = 14;
+            this.mtbNumero.Enter += new System.EventHandler(this.mtbNumero_Enter);
             // 
             // mtbComplemento
             // 
@@ -203,6 +209,7 @@
             this.mtbComplemento.Name = "mtbComplemento";
             this.mtbComplemento.Size = new System.Drawing.Size(205, 23);
             this.mtbComplemento.TabIndex = 15;
+            this.mtbComplemento.Enter += new System.EventHandler(this.lblComplemento_Enter);
             // 
             // mtbBairro
             // 
@@ -210,6 +217,7 @@
             this.mtbBairro.Name = "mtbBairro";
             this.mtbBairro.Size = new System.Drawing.Size(205, 23);
             this.mtbBairro.TabIndex = 16;
+            this.mtbBairro.Enter += new System.EventHandler(this.mtbBairro_Enter);
             // 
             // mtbCidade
             // 
@@ -217,38 +225,39 @@
             this.mtbCidade.Name = "mtbCidade";
             this.mtbCidade.Size = new System.Drawing.Size(205, 23);
             this.mtbCidade.TabIndex = 17;
+            this.mtbCidade.Enter += new System.EventHandler(this.mtbCidade_Enter);
             // 
             // cobEstado
             // 
             this.cobEstado.FormattingEnabled = true;
             this.cobEstado.Items.AddRange(new object[] {
-            "Acre (AC)",
-            "Alagoas (AL)",
-            "Amapá (AP)",
-            "Amazonas (AM)",
-            "Bahia (BA)",
-            "Ceará (CE)",
-            "Distrito Federal (DF)",
-            "Espírito Santo (ES)",
-            "Goiás (GO)",
-            "Maranhão (MA)",
-            "Mato Grosso (MT)",
-            "Mato Grosso do Sul (MS)",
-            "Minas Gerais (MG)",
-            "Pará (PA)",
-            "Paraíba (PB)",
-            "Paraná (PR)",
-            "Pernambuco (PE)",
-            "Piauí (PI)",
-            "Rio de Janeiro (RJ)",
-            "Rio Grande do Norte (RN)",
-            "Rio Grande do Sul (RS)",
-            "Rondônia (RO)",
-            "Roraima (RR)",
-            "Santa Catarina (SC)",
-            "São Paulo (SP)",
-            "Sergipe (SE)",
-            "Tocantins (TO)"});
+            "Acre(AC)",
+            "Alagoas(AL)",
+            "Amapá(AP)",
+            "Amazonas(AM)",
+            "Bahia(BA)",
+            "Ceará(CE)",
+            "Distrito Federal(DF)",
+            "Espírito Santo(ES)",
+            "Goiás(GO)",
+            "Maranhão(MA)",
+            "Mato Grosso(MT)",
+            "Mato Grosso do Sul(MS)",
+            "Minas Gerais(MG)",
+            "Pará(PA)",
+            "Paraíba(PB)",
+            "Paraná(PR)",
+            "Pernambuco(PE)",
+            "Piauí(PI)",
+            "Rio de Janeiro(RJ)",
+            "Rio Grande do Norte(RN)",
+            "Rio Grande do Sul(RS)",
+            "Rondônia(RO)",
+            "Roraima(RR)",
+            "Santa Catarina(SC)",
+            "São Paulo(SP)",
+            "Sergipe(SE)",
+            "Tocantins(TO)"});
             this.cobEstado.Location = new System.Drawing.Point(115, 279);
             this.cobEstado.Name = "cobEstado";
             this.cobEstado.Size = new System.Drawing.Size(205, 23);
@@ -265,6 +274,7 @@
             this.mtbCep.TabIndex = 19;
             this.mtbCep.Text = "00000000";
             this.mtbCep.Click += new System.EventHandler(this.mtbCep_Click);
+            this.mtbCep.Enter += new System.EventHandler(this.mtbCep_Enter);
             this.mtbCep.Leave += new System.EventHandler(this.mtbCep_Leave);
             // 
             // btnEnviar
@@ -276,6 +286,7 @@
             this.btnEnviar.TabIndex = 20;
             this.btnEnviar.Text = "Enviar";
             this.btnEnviar.UseVisualStyleBackColor = true;
+            this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
             // btnCancelar
             // 
@@ -286,6 +297,7 @@
             this.btnCancelar.TabIndex = 21;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
             // lblCadastro
             // 
@@ -327,6 +339,7 @@
             this.Controls.Add(this.lblNome);
             this.Name = "FrmCadastroCliente";
             this.Text = "Cadastro de Cliente";
+            this.Load += new System.EventHandler(this.FrmCadastroCliente_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

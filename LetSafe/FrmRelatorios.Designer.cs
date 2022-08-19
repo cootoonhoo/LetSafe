@@ -32,6 +32,7 @@
             this.cobRelatorios = new System.Windows.Forms.ComboBox();
             this.btnGerar = new System.Windows.Forms.Button();
             this.dgvRelatorio = new System.Windows.Forms.DataGridView();
+            this.btnRetornar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRelatorio)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,9 +40,10 @@
             // 
             this.lblRelatórios.AutoSize = true;
             this.lblRelatórios.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblRelatórios.Location = new System.Drawing.Point(12, 19);
+            this.lblRelatórios.Location = new System.Drawing.Point(17, 32);
+            this.lblRelatórios.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblRelatórios.Name = "lblRelatórios";
-            this.lblRelatórios.Size = new System.Drawing.Size(69, 19);
+            this.lblRelatórios.Size = new System.Drawing.Size(99, 28);
             this.lblRelatórios.TabIndex = 0;
             this.lblRelatórios.Text = "Relatórios";
             // 
@@ -57,17 +59,19 @@
             "Seguros mais procurados",
             "Sinistro por estado",
             "Sinistro por segurado"});
-            this.cobRelatorios.Location = new System.Drawing.Point(87, 19);
+            this.cobRelatorios.Location = new System.Drawing.Point(124, 32);
+            this.cobRelatorios.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cobRelatorios.Name = "cobRelatorios";
-            this.cobRelatorios.Size = new System.Drawing.Size(175, 23);
+            this.cobRelatorios.Size = new System.Drawing.Size(248, 33);
             this.cobRelatorios.TabIndex = 1;
             this.cobRelatorios.Text = "Apolices por segurado";
             // 
             // btnGerar
             // 
-            this.btnGerar.Location = new System.Drawing.Point(286, 19);
+            this.btnGerar.Location = new System.Drawing.Point(409, 32);
+            this.btnGerar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnGerar.Name = "btnGerar";
-            this.btnGerar.Size = new System.Drawing.Size(75, 23);
+            this.btnGerar.Size = new System.Drawing.Size(107, 38);
             this.btnGerar.TabIndex = 2;
             this.btnGerar.Text = "Gerar";
             this.btnGerar.UseVisualStyleBackColor = true;
@@ -77,21 +81,36 @@
             // 
             this.dgvRelatorio.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRelatorio.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dgvRelatorio.Location = new System.Drawing.Point(12, 57);
+            this.dgvRelatorio.Location = new System.Drawing.Point(17, 95);
+            this.dgvRelatorio.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dgvRelatorio.Name = "dgvRelatorio";
+            this.dgvRelatorio.RowHeadersWidth = 62;
             this.dgvRelatorio.RowTemplate.Height = 25;
-            this.dgvRelatorio.Size = new System.Drawing.Size(606, 291);
+            this.dgvRelatorio.Size = new System.Drawing.Size(866, 485);
             this.dgvRelatorio.TabIndex = 3;
+            // 
+            // btnRetornar
+            // 
+            this.btnRetornar.Location = new System.Drawing.Point(573, 32);
+            this.btnRetornar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnRetornar.Name = "btnRetornar";
+            this.btnRetornar.Size = new System.Drawing.Size(107, 38);
+            this.btnRetornar.TabIndex = 4;
+            this.btnRetornar.Text = "Retornar";
+            this.btnRetornar.UseVisualStyleBackColor = true;
+            this.btnRetornar.Click += new System.EventHandler(this.btnRetornar_Click);
             // 
             // FrmRelatorios
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 376);
+            this.ClientSize = new System.Drawing.Size(924, 627);
+            this.Controls.Add(this.btnRetornar);
             this.Controls.Add(this.dgvRelatorio);
             this.Controls.Add(this.btnGerar);
             this.Controls.Add(this.cobRelatorios);
             this.Controls.Add(this.lblRelatórios);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmRelatorios";
             this.Text = "FrmRelatorios";
             this.Load += new System.EventHandler(this.FrmRelatorios_Load);
@@ -107,5 +126,6 @@
         private ComboBox cobRelatorios;
         private Button btnGerar;
         private DataGridView dgvRelatorio;
+        private Button btnRetornar;
     }
 }
