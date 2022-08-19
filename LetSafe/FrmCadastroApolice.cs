@@ -7,11 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace LetSafe
 {
     public partial class FrmCadastroApolice : Form
     {
+        Thread T1;
         public FrmCadastroApolice()
         {
             InitializeComponent();
@@ -48,9 +50,31 @@ namespace LetSafe
             Fim = DateTime.Parse(dtpFim.Value.ToString());
 
             DataBaseCon.CadastrarApolice(Valor, Inicio, Fim);
+            NovoCadastro();
         }
         private bool Validacoes() {
             return decimal.TryParse(txbValorSeguro.Text, out _);
+        }
+
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            Retornar();
+        }
+        private void Retornar() {
+            T1 = new Thread(FormFunc);
+            T1.SetApartmentState(ApartmentState.STA);
+            T1.Start();
+            this.Close();
+        }
+        private void FormFunc() {
+            Application.Run(new FrmTelaFunc());
+        }
+        private void NovoCadastro() {
+            var result = MessageBox.Show("Você deseja fazer mais um cadastro?", "", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.No) {
+                Retornar();
+            }
         }
     }
 }

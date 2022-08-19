@@ -99,6 +99,7 @@
             this.btnRetornar.TabIndex = 5;
             this.btnRetornar.Text = "Retornar";
             this.btnRetornar.UseVisualStyleBackColor = true;
+            this.btnRetornar.Click += new System.EventHandler(this.btnRetornar_Click);
             // 
             // dtpInicio
             // 
