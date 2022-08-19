@@ -38,7 +38,7 @@ namespace LetSafe
         private void btnConsultaCliente_Click(object sender, EventArgs e)
         {
             this.Close();
-            t1 = new Thread(AbrirFormConsultaCliente);
+            t1 = new Thread(AbrirFormEditaCliente);
             t1.SetApartmentState(ApartmentState.STA);
             t1.Start();
         }
@@ -69,10 +69,9 @@ namespace LetSafe
             Application.Run(new FrmCadastroApolice());
         }
 
-        private void AbrirFormConsultaCliente(object obj)
+        private void AbrirFormEditaCliente(object obj)
         {
-            //Application.Run(new FrmCadastroCliente());
-            //verificar nova tela
+            Application.Run(new FrmEditaCliente());
         }
 
         private void AbrirFormRelatorio(object obj)
