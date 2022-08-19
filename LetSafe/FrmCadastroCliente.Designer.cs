@@ -171,6 +171,7 @@
             this.mtbCpf.Size = new System.Drawing.Size(205, 23);
             this.mtbCpf.TabIndex = 11;
             this.mtbCpf.Text = "00000000000";
+            this.mtbCpf.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.mtbCpf_MaskInputRejected);
             this.mtbCpf.Click += new System.EventHandler(this.mtbCpf_Click);
             this.mtbCpf.Enter += new System.EventHandler(this.mtbCpf_Click);
             this.mtbCpf.Leave += new System.EventHandler(this.mtbCpf_Leave);

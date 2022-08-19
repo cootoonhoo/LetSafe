@@ -76,5 +76,11 @@ namespace LetSafe
                 Retornar();
             }
         }
+
+        private void FrmCadastroApolice_Load(object sender, EventArgs e)
+        {
+            lblValorSeguro.Text = UltimosDados.UltimoCpf;
+            lblFimVigencia.Text = DataBaseCon.IdUltimoSegurado().ToString();
+        }
     }
 }

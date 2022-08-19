@@ -45,21 +45,24 @@ namespace LetSafe
         }
         public static void CadastrarSegurado(string nome, string cpf, string email)
         {
+            cpf = cpf.Replace("-", "");
             try
             {
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
                 {
                     DbCon.Open();
-                    var SqlQuerry = $"INSERT INTO Segurado VALUES ('@nome', '@cpf', @'email')";
+                    var SqlQuerry = $"INSERT INTO Segurado VALUES (@nome, @cpf, @email, 1)";
                     using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
                     {
                         comand.Parameters.AddWithValue("@nome", nome);
                         comand.Parameters.AddWithValue("@cpf", cpf);
                         comand.Parameters.AddWithValue("@email", email);
+                        comand.ExecuteNonQuery();
                     }
 
                 }
                 MessageBox.Show("Segurado Cadastrado com sucesso! {Debug}");
+
             }
             catch (Exception ex)
             {
@@ -73,7 +76,7 @@ namespace LetSafe
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
                 {
                     DbCon.Open();
-                    var SqlQuerry = $"INSERT INTO endereco VALUES ('@logradouro', '@numero', '@complemento', '@bairro', '@cidade', '@uf', '@cep')";
+                    var SqlQuerry = $"INSERT INTO endereco VALUES (@logradouro, @numero, @complemento, @bairro, @cidade, @uf, @cep)";
                     using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
                     {
                         comand.Parameters.AddWithValue("@logradouro", logradouro);
@@ -83,6 +86,7 @@ namespace LetSafe
                         comand.Parameters.AddWithValue("@cidade", cidade);
                         comand.Parameters.AddWithValue("@uf", uf);
                         comand.Parameters.AddWithValue("@cep", cep);
+                        comand.ExecuteNonQuery();
                     }
 
                 }
@@ -147,7 +151,7 @@ namespace LetSafe
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
                 {
                     DbCon.Open();
-                    var SqlQuerry = $"INSERT INTO Apolice VALUES ('@ValorSeguro', '@InicioVig', @'FimVig', @'Produto', @'Segurado')";
+                    var SqlQuerry = $"INSERT INTO Apolice VALUES (@ValorSeguro, @InicioVig, @FimVig, @Produto, @Segurado)";
                     using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
                     {
                         comand.Parameters.AddWithValue("@ValorSeguro", valorSeguro);
@@ -155,6 +159,7 @@ namespace LetSafe
                         comand.Parameters.AddWithValue("@FimVig", FimVig);
                         comand.Parameters.AddWithValue("@Produto", Num1);
                         comand.Parameters.AddWithValue("@Segurado", Num2);
+                        comand.ExecuteNonQuery();
                     }
 
                 }
@@ -163,6 +168,34 @@ namespace LetSafe
             catch (Exception ex)
             {
                 MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
+        public static int IdUltimoSegurado() {
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = $"SELECT TOP 1 id_segurado FROM segurado ORDER BY id_segurado DESC;";
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+                    return int.Parse(dt.Rows[0][0].ToString());
+                }
+            }
+        }
+        public static int IdSeguradoPorCpf(string CPF)
+        {
+            CPF = CPF.Replace("-", "");
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = $"SELECT  * FROM segurado WHERE CPF = {CPF};";
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+                    return int.Parse(dt.Rows[0][0].ToString());
+                }
             }
         }
     }

@@ -138,6 +138,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmCadastroApolice";
             this.Text = "Cadastrar apólice";
+            this.Load += new System.EventHandler(this.FrmCadastroApolice_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

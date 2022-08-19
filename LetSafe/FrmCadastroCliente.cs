@@ -96,12 +96,17 @@ namespace LetSafe
             var result = MessageBox.Show("Você deseja cadastrar uma apolice?", "Teste", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                this.Close();
                 Thread T1 = new Thread(CadastroApolice);
+                T1.SetApartmentState(ApartmentState.STA);
+                UltimosDados.UltimoCpf = mtbCpf.Text;
+                T1.Start();
+                this.Close();
             }
             else {
-                this.Close();
                 Thread T1 = new Thread(Return);
+                T1.SetApartmentState(ApartmentState.STA);
+                T1.Start();
+                this.Close();
             }
 
         }
@@ -142,13 +147,14 @@ namespace LetSafe
         }
         private bool Verificacao() {
             Regex rxEmail = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+            Regex rxCpf = new Regex(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})");
             bool aux = true;
             if (String.IsNullOrEmpty(mtbNome.Text)) {
                 aux = false;
                 mtbNome.ForeColor = Color.Red;
                 mtbNome.Text = "Nome inválido";
             }
-            if (!int.TryParse(mtbCpf.Text, out _))
+            if (!rxCpf.IsMatch(mtbCpf.Text))
             {
                 aux = false;
                 mtbCpf.ForeColor = Color.Red;
@@ -268,6 +274,11 @@ namespace LetSafe
                 mtbCidade.Text = "";
                 mtbCidade.ForeColor = Color.Black;
             }
+        }
+
+        private void mtbCpf_MaskInputRejected(object sender, MaskInputRejectedEventArgs e)
+        {
+
         }
     }
 }
