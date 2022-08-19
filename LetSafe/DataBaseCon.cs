@@ -93,5 +93,49 @@ namespace LetSafe
                 MessageBox.Show("Falha ao conectar\n" + ex.Message);
             }
         }
+
+        public static DataTable ConsultaCliente(string cpf)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"SELECT * FROM segurado WHERE cpf = {cpf}";
+                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                    {
+                        DataTable dt = new DataTable();
+                        DaAdpt.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+                return null;
+            }
+        }
+
+        public static void DeletaCliente(string cpf)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"DELETE FROM segurado WHERE cpf = {cpf}";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
+
+        public static void EditaCliente(string cpf)
+        {
+           
+        }
     }
 }
