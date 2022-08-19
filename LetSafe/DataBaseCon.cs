@@ -137,5 +137,33 @@ namespace LetSafe
         {
            
         }
+        public static void CadastrarApolice(decimal valorSeguro, DateTime InicioVig, DateTime FimVig) {
+            int Num1, Num2;
+            Num1 = new Random().Next(1, 1000);
+            Num2 = new Random().Next(1, 1000);
+
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"INSERT INTO Apolice VALUES ('@ValorSeguro', '@InicioVig', @'FimVig', @'Produto', @'Segurado')";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.Parameters.AddWithValue("@ValorSeguro", valorSeguro);
+                        comand.Parameters.AddWithValue("@InicioVig", InicioVig);
+                        comand.Parameters.AddWithValue("@FimVig", FimVig);
+                        comand.Parameters.AddWithValue("@Produto", Num1);
+                        comand.Parameters.AddWithValue("@Segurado", Num2);
+                    }
+
+                }
+                MessageBox.Show("Segurado Cadastrado com sucesso! {Debug}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
     }
 }
