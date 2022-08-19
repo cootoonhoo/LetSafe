@@ -32,10 +32,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
@@ -70,16 +70,9 @@
             this.maskedTextBox1.Location = new System.Drawing.Point(38, 170);
             this.maskedTextBox1.Mask = "00/00/0000";
             this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(159, 23);
+            this.maskedTextBox1.Size = new System.Drawing.Size(151, 23);
             this.maskedTextBox1.TabIndex = 5;
             this.maskedTextBox1.ValidatingType = typeof(System.DateTime);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(38, 238);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 23);
-            this.textBox2.TabIndex = 6;
             // 
             // label3
             // 
@@ -119,15 +112,23 @@
             this.comboBox1.Size = new System.Drawing.Size(151, 23);
             this.comboBox1.TabIndex = 9;
             // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(38, 238);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(151, 23);
+            this.comboBox2.TabIndex = 10;
+            // 
             // FrmCadastroSinistro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -146,9 +147,9 @@
         private Label label1;
         private Label label2;
         private MaskedTextBox maskedTextBox1;
-        private TextBox textBox2;
         private Label label3;
         private Label label4;
         private ComboBox comboBox1;
+        private ComboBox comboBox2;
     }
 }
