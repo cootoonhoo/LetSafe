@@ -34,6 +34,7 @@
             this.lblNome = new System.Windows.Forms.Label();
             this.lblEmail = new System.Windows.Forms.Label();
             this.btnEnviar = new System.Windows.Forms.Button();
+            this.btnRetornar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblPreenchaDados
@@ -88,11 +89,22 @@
             this.btnEnviar.UseVisualStyleBackColor = true;
             this.btnEnviar.Click += new System.EventHandler(this.btnEnviar_Click);
             // 
+            // btnRetornar
+            // 
+            this.btnRetornar.Location = new System.Drawing.Point(116, 264);
+            this.btnRetornar.Name = "btnRetornar";
+            this.btnRetornar.Size = new System.Drawing.Size(75, 23);
+            this.btnRetornar.TabIndex = 6;
+            this.btnRetornar.Text = "Retornar";
+            this.btnRetornar.UseVisualStyleBackColor = true;
+            this.btnRetornar.Click += new System.EventHandler(this.btnRetornar_Click);
+            // 
             // FrmDadosContato
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(307, 339);
+            this.Controls.Add(this.btnRetornar);
             this.Controls.Add(this.btnEnviar);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.lblNome);
@@ -115,5 +127,6 @@
         private Label lblNome;
         private Label lblEmail;
         private Button btnEnviar;
+        private Button btnRetornar;
     }
 }

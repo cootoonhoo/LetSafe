@@ -39,5 +39,17 @@ namespace LetSafe
             }
                 
         }
+         private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmOrcamento());
+        }
+
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            Thread T1 = new Thread(AbrirFormAnterior);
+            T1.SetApartmentState(ApartmentState.STA);
+            T1.Start();
+            this.Close();
+        }
     }
 }

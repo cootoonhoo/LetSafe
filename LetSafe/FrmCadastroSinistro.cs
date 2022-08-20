@@ -24,17 +24,17 @@ namespace LetSafe
 
         }
 
-        private void btnRetornar_Click(object sender, EventArgs e)
+        private void AbrirFormAnterior(object obj)
+        {
+            Application.Run(new FrmAreaCliente());
+        }
+
+        private void btnRetornar_Click_1(object sender, EventArgs e)
         {
             this.Close();
             t1 = new Thread(AbrirFormAnterior);
             t1.SetApartmentState(ApartmentState.STA);
             t1.Start();
-        }
-
-        private void AbrirFormAnterior(object obj)
-        {
-            Application.Run(new FrmAreaCliente());
         }
     }
 }

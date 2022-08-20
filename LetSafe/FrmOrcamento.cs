@@ -108,17 +108,14 @@ namespace LetSafe
             this.Close();
         }
 
-        private void btnRetornar_Click(object sender, EventArgs e)
+        private void FrmOrcamento_Load(object sender, EventArgs e)
         {
-            this.Close();
-            t1 = new Thread(AbrirFormAnterior);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+
         }
 
-        private void AbrirFormAnterior(object obj)
+        private void txbValorProduto_TextChanged(object sender, EventArgs e)
         {
-            Application.Run(new FrmTelaCliente());
+
         }
     }
 }
