@@ -98,7 +98,6 @@ namespace LetSafe
             {
                 Thread T1 = new Thread(CadastroApolice);
                 T1.SetApartmentState(ApartmentState.STA);
-                UltimosDados.UltimoCpf = mtbCpf.Text;
                 T1.Start();
                 this.Close();
             }

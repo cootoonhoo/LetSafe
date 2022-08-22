@@ -191,12 +191,8 @@ namespace LetSafe
                 MessageBox.Show("Falha ao conectar\n" + ex.Message);
             }
         }
-        public static void CadastrarApolice(decimal valorSeguro, DateTime InicioVig, DateTime FimVig)
+        public static void CadastrarApolice(decimal valorSeguro, DateTime InicioVig, DateTime FimVig, int Segurado, int Produto)
         {
-            int Num1, Num2;
-            Num1 = new Random().Next(1, 1000);
-            Num2 = new Random().Next(1, 1000);
-
             try
             {
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
@@ -208,8 +204,8 @@ namespace LetSafe
                         comand.Parameters.AddWithValue("@ValorSeguro", valorSeguro);
                         comand.Parameters.AddWithValue("@InicioVig", InicioVig);
                         comand.Parameters.AddWithValue("@FimVig", FimVig);
-                        comand.Parameters.AddWithValue("@Produto", Num1);
-                        comand.Parameters.AddWithValue("@Segurado", Num2);
+                        comand.Parameters.AddWithValue("@Produto", Produto);
+                        comand.Parameters.AddWithValue("@Segurado", Segurado);
                         comand.ExecuteNonQuery();
                     }
 
@@ -303,6 +299,42 @@ namespace LetSafe
                     }
 
                     return apolices;                    
+                }
+            }
+        }
+        public static List<string> TiposProdutos() {
+            List<string> TiposProds = new List<string>();
+
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = $"SELECT departamento FROM tipoprodutos;";
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+
+                    int numDepartamentos = dt.Rows.Count;
+
+                    for (int i = 0; i < numDepartamentos; i++)
+                    {
+                        TiposProds.Add($"{dt.Rows[i][0]}");
+                    }
+
+                    return TiposProds;
+                }
+            }
+        }
+        public static int UltimoProdCadastrado() {
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = $"SELECT TOP 1 id_produto FROM Produtos ORDER BY id_produto DESC;";
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+                    return int.Parse(dt.Rows[0][0].ToString());
                 }
             }
         }
