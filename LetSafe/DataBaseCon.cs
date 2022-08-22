@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+
 namespace LetSafe
 {
     static class DataBaseCon
@@ -137,11 +139,60 @@ namespace LetSafe
             }
         }
 
-        public static void EditaCliente(string cpf)
+        public static void EditaSegurado(string nome, string novoCpf, string email, string antigoCpf)
         {
-           
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"UPDATE segurado SET (@nome, @cpf, @email, 1) WHERE cpf = {antigoCpf}";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.Parameters.AddWithValue("@nome", nome);
+                        comand.Parameters.AddWithValue("@cpf", novoCpf);
+                        comand.Parameters.AddWithValue("@email", email);
+                        comand.ExecuteNonQuery();
+                    }
+
+                }
+                MessageBox.Show("Dados editados com sucesso!");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
         }
-        public static void CadastrarApolice(decimal valorSeguro, DateTime InicioVig, DateTime FimVig) {
+
+        public static void EditaEndereço(string logradouro, int numero, string complemento, string bairro, string cidade, string uf, string cep)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"UPDATE endereco SET (@logradouro, @numero, @complemento, @bairro, @cidade, @uf, @cep)";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.Parameters.AddWithValue("@logradouro", logradouro);
+                        comand.Parameters.AddWithValue("@numero", numero);
+                        comand.Parameters.AddWithValue("@complemento", complemento);
+                        comand.Parameters.AddWithValue("@bairro", bairro);
+                        comand.Parameters.AddWithValue("@cidade", cidade);
+                        comand.Parameters.AddWithValue("@uf", uf);
+                        comand.Parameters.AddWithValue("@cep", cep);
+                        comand.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
+        public static void CadastrarApolice(decimal valorSeguro, DateTime InicioVig, DateTime FimVig)
+        {
             int Num1, Num2;
             Num1 = new Random().Next(1, 1000);
             Num2 = new Random().Next(1, 1000);
@@ -170,7 +221,8 @@ namespace LetSafe
                 MessageBox.Show("Falha ao conectar\n" + ex.Message);
             }
         }
-        public static int IdUltimoSegurado() {
+        public static int IdUltimoSegurado()
+        {
             using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
             {
                 DbCon.Open();
@@ -195,6 +247,62 @@ namespace LetSafe
                     DataTable dt = new DataTable();
                     DaAdpt.Fill(dt);
                     return int.Parse(dt.Rows[0][0].ToString());
+                }
+            }
+        }
+
+        public static bool ClienteCadastrado(string cpf)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"SELECT * FROM segurado WHERE cpf = {cpf}";
+                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                    {
+                        DataTable dt = new DataTable();
+                        DaAdpt.Fill(dt);
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+                return false;
+            }
+        }
+
+        public static List<string> ApolicesSegurado(string cpf)
+        {
+            List<string> apolices = new List<string>();
+
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = $"SELECT id_apolice, nome_produto from Apolice a LEFT JOIN segurado s ON s.id_segurado = a.id_segurado LEFT JOIN Produtos p ON p.id_produto = a.id_produto WHERE cpf = {cpf} AND a.fim_vigencia >= GETDATE();";
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+
+                    int numApolices = dt.Rows.Count;
+
+                    for (int i = 0; i < numApolices; i++ )
+                    {
+                        apolices.Add($"{dt.Rows[i][0]} - {dt.Rows[i][1]}");
+                    }
+
+                    return apolices;                    
                 }
             }
         }
