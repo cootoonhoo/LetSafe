@@ -28,26 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.components = new System.ComponentModel.Container();
+            this.btnAbrirSinistro = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.btnRetornar = new System.Windows.Forms.Button();
+            this.frmCadastroApoliceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cbbApolices = new System.Windows.Forms.ComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.frmCadastroApoliceBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // btnAbrirSinistro
             // 
-            this.button1.Location = new System.Drawing.Point(89, 624);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(359, 38);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Cadastrar Sinistro";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAbrirSinistro.Location = new System.Drawing.Point(89, 624);
+            this.btnAbrirSinistro.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnAbrirSinistro.Name = "btnAbrirSinistro";
+            this.btnAbrirSinistro.Size = new System.Drawing.Size(359, 38);
+            this.btnAbrirSinistro.TabIndex = 0;
+            this.btnAbrirSinistro.Text = "Confirmar";
+            this.btnAbrirSinistro.UseVisualStyleBackColor = true;
+            this.btnAbrirSinistro.Click += new System.EventHandler(this.btnAbrirSinistro_Click);
             // 
             // label1
             // 
@@ -78,14 +82,6 @@
             this.maskedTextBox1.Size = new System.Drawing.Size(225, 31);
             this.maskedTextBox1.TabIndex = 5;
             this.maskedTextBox1.ValidatingType = typeof(System.DateTime);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(54, 397);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(141, 31);
-            this.textBox2.TabIndex = 6;
             // 
             // label3
             // 
@@ -139,24 +135,37 @@
             this.btnRetornar.UseVisualStyleBackColor = true;
             this.btnRetornar.Click += new System.EventHandler(this.btnRetornar_Click);
             // 
+            // frmCadastroApoliceBindingSource
+            // 
+            this.frmCadastroApoliceBindingSource.DataSource = typeof(LetSafe.FrmCadastroApolice);
+            // 
+            // cbbApolices
+            // 
+            this.cbbApolices.FormattingEnabled = true;
+            this.cbbApolices.Location = new System.Drawing.Point(54, 404);
+            this.cbbApolices.Name = "cbbApolices";
+            this.cbbApolices.Size = new System.Drawing.Size(182, 33);
+            this.cbbApolices.TabIndex = 11;
+            // 
             // FrmCadastroSinistro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(571, 750);
+            this.Controls.Add(this.cbbApolices);
             this.Controls.Add(this.btnRetornar);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnAbrirSinistro);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmCadastroSinistro";
             this.Text = "FrmCadastroSinistro";
             this.Load += new System.EventHandler(this.FrmCadastroSinistro_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.frmCadastroApoliceBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,14 +173,15 @@
 
         #endregion
 
-        private Button button1;
+        private Button btnAbrirSinistro;
         private Label label1;
         private Label label2;
         private MaskedTextBox maskedTextBox1;
-        private TextBox textBox2;
         private Label label3;
         private Label label4;
         private ComboBox comboBox1;
         private Button btnRetornar;
+        private BindingSource frmCadastroApoliceBindingSource;
+        private ComboBox cbbApolices;
     }
 }

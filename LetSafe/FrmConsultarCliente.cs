@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace LetSafe
 {
     public partial class FrmConsultarCliente : Form
@@ -21,10 +22,19 @@ namespace LetSafe
 
         private void btnAcessar_Click(object sender, EventArgs e)
         {
-            this.Close();
-            t1 = new Thread(AbrirFormCliente);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            string cpf = mtxbCpf.Text.Replace("-", "");
+
+            if (DataBaseCon.ClienteCadastrado(cpf))
+            {
+                this.Close();
+                t1 = new Thread(AbrirFormCliente);
+                t1.SetApartmentState(ApartmentState.STA);
+                t1.Start();
+            }
+            else
+            {
+                MessageBox.Show("CPF não encontrado!");
+            }
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
@@ -37,7 +47,8 @@ namespace LetSafe
 
         private void AbrirFormCliente(object obj)
         {
-            Application.Run(new FrmAreaCliente());
+            string cpf = mtxbCpf.Text.Replace("-", "");
+            Application.Run(new FrmAreaCliente(cpf));
         }
 
         private void AbrirFormAnterior(object obj)

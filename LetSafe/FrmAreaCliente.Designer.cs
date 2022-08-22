@@ -73,6 +73,7 @@
             this.Controls.Add(this.btnSinistro);
             this.Name = "FrmAreaCliente";
             this.Text = "Área do cliente";
+            this.Load += new System.EventHandler(this.FrmAreaCliente_Load);
             this.ResumeLayout(false);
 
         }

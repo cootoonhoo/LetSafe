@@ -14,14 +14,28 @@ namespace LetSafe
     {
         Thread t1;
 
+        public string Cpf { get; set; }
+
         public FrmCadastroSinistro()
         {
             InitializeComponent();
         }
 
+        public FrmCadastroSinistro(string cpf)
+        {
+            InitializeComponent();
+
+            Cpf = cpf;
+        }
+
         private void FrmCadastroSinistro_Load(object sender, EventArgs e)
         {
+            List<string> list = DataBaseCon.ApolicesSegurado(Cpf);
 
+            foreach (var item in list)
+            {
+                cbbApolices.Items.Add(item);
+            }
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
@@ -36,5 +50,11 @@ namespace LetSafe
         {
             Application.Run(new FrmAreaCliente());
         }
+
+        private void btnAbrirSinistro_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

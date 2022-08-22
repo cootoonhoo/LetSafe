@@ -14,9 +14,18 @@ namespace LetSafe
     {
         Thread t1;
 
+        public string Cpf { get; set; }
+
         public FrmHistorico()
         {
             InitializeComponent();
+        }
+
+        public FrmHistorico(string cpf)
+        {
+            InitializeComponent();
+
+            Cpf = cpf;
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
@@ -31,5 +40,6 @@ namespace LetSafe
         {
             Application.Run(new FrmAreaCliente());
         }
+
     }
 }

@@ -21,7 +21,7 @@ namespace LetSafe
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
-            var cpf = mtbCpf.Text.ToString();
+            var cpf = mtbCpf.Text.Replace("-", "");
             dgvCliente.DataSource = DataBaseCon.ConsultaCliente(cpf);
 
             if (dgvCliente.Rows.Count == 1)
@@ -56,7 +56,12 @@ namespace LetSafe
         private void btnExcluir_Click(object sender, EventArgs e)
         {
             var cpf = mtbCpf.Text.ToString();
-            DataBaseCon.DeletaCliente(cpf);
+            var msgAlerta = MessageBox.Show("Deseja mesmo excluir este cliente?", "Alerta!!", MessageBoxButtons.YesNo);
+
+            if (msgAlerta == DialogResult.Yes)
+            {
+                DataBaseCon.DeletaCliente(cpf);
+            }
         }
     }
 }

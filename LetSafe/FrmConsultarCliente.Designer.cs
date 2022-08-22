@@ -46,7 +46,7 @@
             // mtxbCpf
             // 
             this.mtxbCpf.Location = new System.Drawing.Point(353, 150);
-            this.mtxbCpf.Mask = "000.000.000-00";
+            this.mtxbCpf.Mask = "000000000-00";
             this.mtxbCpf.Name = "mtxbCpf";
             this.mtxbCpf.Size = new System.Drawing.Size(198, 31);
             this.mtxbCpf.TabIndex = 1;

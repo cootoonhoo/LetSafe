@@ -13,9 +13,19 @@ namespace LetSafe
     public partial class FrmAreaCliente : Form
     {
         Thread t1;
+
+        public string Cpf { get; set; }
+
         public FrmAreaCliente()
         {
             InitializeComponent();
+        }
+
+        public FrmAreaCliente(string cpf)
+        {
+            InitializeComponent();
+
+            Cpf = cpf;
         }
 
         private void btnSinistro_Click(object sender, EventArgs e)
@@ -44,17 +54,22 @@ namespace LetSafe
 
         private void AbrirFormSinistro(object obj)
         {
-            Application.Run(new FrmCadastroSinistro());
+            Application.Run(new FrmCadastroSinistro(Cpf));
         }
 
         private void AbrirFormHistorico(object obj)
         {
-            Application.Run(new FrmHistorico());
+            Application.Run(new FrmHistorico(Cpf));
         }
 
         private void AbrirFormTelaCliente(object obj)
         {
             Application.Run(new FrmTelaCliente());
+        }
+
+        private void FrmAreaCliente_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
