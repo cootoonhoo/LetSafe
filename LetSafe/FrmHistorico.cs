@@ -41,5 +41,9 @@ namespace LetSafe
             Application.Run(new FrmAreaCliente());
         }
 
+        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

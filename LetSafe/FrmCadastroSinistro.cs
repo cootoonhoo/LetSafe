@@ -30,12 +30,19 @@ namespace LetSafe
 
         private void FrmCadastroSinistro_Load(object sender, EventArgs e)
         {
-            List<string> list = DataBaseCon.ApolicesSegurado(Cpf);
+            cbbApolices.Items.Clear();
+            cbbApolices.DataSource = DataBaseCon.ConsultaApolicesSegurados(Cpf);
+            cbbApolices.DisplayMember = "nome_produto";
+            cbbApolices.ValueMember = "id_apolice";
 
-            foreach (var item in list)
-            {
-                cbbApolices.Items.Add(item);
-            }
+
+
+            //List<string> list = DataBaseCon.ApolicesSegurado(Cpf);
+
+            //foreach (var item in list)
+            //{
+            //    cbbApolices.Items.Add(item);
+            //}
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
@@ -56,5 +63,47 @@ namespace LetSafe
 
         }
 
+        private void cbbApolices_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cb_TipoProduto.Items.Clear();
+            switch (cbbApolices.Text)
+            {
+                case "Carro":
+                case "Moto":
+                case "Caminhao":
+                    string[] veiculos = new string[] { "Acidente", "Dano funcional", "Perda parcial", "Perda total", "Roubo e Furto" };
+                    cb_TipoProduto.Items.AddRange(veiculos);
+                    break;
+                case "SeguroAcidente":
+                case "SeguroPatrimonio":
+                case "SeguroViagem":
+                case "SeguroVida":
+                    string[] pessoal = new string[] { "Acidente", "Doença", "Morte" };
+                    cb_TipoProduto.Items.AddRange(pessoal);
+                    break;
+                case "Apartamento":
+                case "Casa":
+                case "Escritório":
+                case "Fazenda":
+                    string[] residencial = new string[] { "Incêndio", "Quebra", "Reparos", "Roubo e Furto" };
+                    cb_TipoProduto.Items.AddRange(residencial);
+                    break;
+                case "Celular":
+                case "Computador":
+                case "Notebook":
+                case "Smartwatch":
+                case "Tablet":
+                    string[] eletronico = new string[] { "Acidente", "Dano funcional", "Quebra", "Reparos", "Roubo e Furto" };
+                    cb_TipoProduto.Items.AddRange(eletronico);
+                    break;
+            }
+
+
+        }
+
+
     }
+
 }
+
+

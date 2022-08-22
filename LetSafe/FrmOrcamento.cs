@@ -35,7 +35,7 @@ namespace LetSafe
                     cbProduto.Items.AddRange(produtosVeiculos);
                     break;
                 case "Residencial":
-                    string[] produtosResidencial = new string[] { "Apartamento", "Casa", "Escritório", "Fazenda", "Prédio" };
+                    string[] produtosResidencial = new string[] {"Apartamento", "Casa", "Escritório", "Fazenda", "Prédio" };
                     cbProduto.Items.AddRange(produtosResidencial);
                     break;
                 case "Pessoais":

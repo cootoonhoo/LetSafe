@@ -44,40 +44,36 @@
             this.listBox1.BackColor = System.Drawing.SystemColors.Info;
             this.listBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 25;
-            this.listBox1.Location = new System.Drawing.Point(36, 63);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(25, 38);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(377, 154);
+            this.listBox1.Size = new System.Drawing.Size(265, 94);
             this.listBox1.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 32);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(25, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 25);
+            this.label1.Size = new System.Drawing.Size(70, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Seus Dados:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 245);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(25, 147);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(125, 25);
+            this.label2.Size = new System.Drawing.Size(82, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "Suas Apolices:";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 480);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Location = new System.Drawing.Point(25, 288);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(125, 25);
+            this.label3.Size = new System.Drawing.Size(81, 15);
             this.label3.TabIndex = 3;
             this.label3.Text = "Suas Sinistros:";
             // 
@@ -85,31 +81,28 @@
             // 
             this.listBox2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 25;
-            this.listBox2.Location = new System.Drawing.Point(36, 275);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listBox2.ItemHeight = 15;
+            this.listBox2.Location = new System.Drawing.Point(25, 165);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(664, 154);
+            this.listBox2.Size = new System.Drawing.Size(466, 94);
             this.listBox2.TabIndex = 4;
             // 
             // listBox3
             // 
             this.listBox3.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.listBox3.FormattingEnabled = true;
-            this.listBox3.ItemHeight = 25;
-            this.listBox3.Location = new System.Drawing.Point(36, 510);
-            this.listBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listBox3.ItemHeight = 15;
+            this.listBox3.Location = new System.Drawing.Point(25, 306);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(467, 154);
+            this.listBox3.Size = new System.Drawing.Size(328, 94);
             this.listBox3.TabIndex = 5;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(630, 32);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Location = new System.Drawing.Point(441, 19);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 25);
+            this.label4.Size = new System.Drawing.Size(91, 15);
             this.label4.TabIndex = 6;
             this.label4.Text = "Seus Endereços:";
             // 
@@ -117,18 +110,19 @@
             // 
             this.listBox4.BackColor = System.Drawing.SystemColors.Info;
             this.listBox4.FormattingEnabled = true;
-            this.listBox4.ItemHeight = 25;
-            this.listBox4.Location = new System.Drawing.Point(630, 62);
-            this.listBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.listBox4.ItemHeight = 15;
+            this.listBox4.Location = new System.Drawing.Point(441, 37);
             this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(377, 154);
+            this.listBox4.Size = new System.Drawing.Size(265, 94);
             this.listBox4.TabIndex = 7;
+            this.listBox4.SelectedIndexChanged += new System.EventHandler(this.listBox4_SelectedIndexChanged);
             // 
             // btnRetornar
             // 
-            this.btnRetornar.Location = new System.Drawing.Point(979, 630);
+            this.btnRetornar.Location = new System.Drawing.Point(685, 378);
+            this.btnRetornar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRetornar.Name = "btnRetornar";
-            this.btnRetornar.Size = new System.Drawing.Size(112, 34);
+            this.btnRetornar.Size = new System.Drawing.Size(78, 20);
             this.btnRetornar.TabIndex = 8;
             this.btnRetornar.Text = "Retornar";
             this.btnRetornar.UseVisualStyleBackColor = true;
@@ -136,9 +130,9 @@
             // 
             // FrmHistorico
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1143, 750);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.btnRetornar);
             this.Controls.Add(this.listBox4);
             this.Controls.Add(this.label4);
@@ -148,7 +142,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.listBox1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmHistorico";
             this.Text = "FrmHistorico";
             this.ResumeLayout(false);

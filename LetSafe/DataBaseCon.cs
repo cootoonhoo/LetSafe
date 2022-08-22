@@ -306,5 +306,34 @@ namespace LetSafe
                 }
             }
         }
+
+        public static DataTable ConsultaApolicesSegurados(string cpf)
+        {
+
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = @$"SELECT id_apolice,nome_produto FROM Apolice
+INNER JOIN Produtos on Apolice.id_produto = Produtos.id_produto
+WHERE id_segurado = (SELECT id_segurado FROM segurado WHERE cpf = {cpf}
+                    AND Apolice.fim_vigencia >= GETDATE()); ";
+                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                    {
+                        DataTable dt = new DataTable();
+                        DaAdpt.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+                throw ex;
+            }
+        }
+            
+            
     }
 }
