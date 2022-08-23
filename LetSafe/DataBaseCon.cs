@@ -198,7 +198,7 @@ namespace LetSafe
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
                 {
                     DbCon.Open();
-                    var SqlQuerry = $"INSERT INTO Apolice VALUES (@ValorSeguro, @InicioVig, @FimVig, @Produto, @Segurado)";
+                    var SqlQuerry = $"INSERT INTO Apolice VALUES (@ValorSeguro, @InicioVig, @FimVig, @Segurado, @Produto)";
                     using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
                     {
                         comand.Parameters.AddWithValue("@ValorSeguro", valorSeguro);
@@ -365,7 +365,45 @@ WHERE id_segurado = (SELECT id_segurado FROM segurado WHERE cpf = {cpf}
                 throw ex;
             }
         }
-            
-            
+
+        public static void CadastrarProduto(string NomeProduto, decimal Valor, int id_tipo_produto)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"insert into Produtos (nome_produto, valor_bem, id_tipo_produto) values (@NomeProduto, @Valor, @id_tipo_produto);";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.Parameters.AddWithValue("@NomeProduto", NomeProduto);
+                        comand.Parameters.AddWithValue("@Valor", Valor);
+                        comand.Parameters.AddWithValue("@id_tipo_produto", id_tipo_produto);
+                        comand.ExecuteNonQuery();
+                    }
+
+                }
+                MessageBox.Show("Produto Cadastrado com sucesso! {Debug}");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
+        public static string CpfUltimoSegurado()
+        {
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = $"SELECT TOP 1 cpf FROM segurado ORDER BY id_segurado DESC;";
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+                    return dt.Rows[0][0].ToString();
+                }
+            }
+        }
+
     }
 }
