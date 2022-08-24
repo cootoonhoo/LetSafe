@@ -229,6 +229,7 @@
             // 
             // cobEstado
             // 
+            this.cobEstado.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobEstado.FormattingEnabled = true;
             this.cobEstado.Items.AddRange(new object[] {
             "Acre(AC)",

@@ -507,6 +507,31 @@ WHERE cpf = '{CPF}'";
             }
         }
 
+        public static DataRow ResgatarSegurado(string CPF)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = @$"SELECT* FROM segurado WHERE cpf = '{CPF}'";
+                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                    {
+                        DataTable dt = new DataTable();
+                        DaAdpt.Fill(dt);
+                        return dt.Rows[0];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+                return null;
+            }
+        }
+
+
+
     }
 }
 //

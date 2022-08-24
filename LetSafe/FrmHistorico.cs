@@ -31,6 +31,14 @@ namespace LetSafe
             dgvApolice.DataSource = DataBaseCon.ResgatarApolice(cpf);
             dgvSinistro.DataSource = DataBaseCon.ResgatarSinistro(cpf);
 
+             
+            DataRow dadosSegurado = DataBaseCon.ResgatarSegurado(cpf);
+            string nome = $"Nome: {dadosSegurado.ItemArray[1].ToString()}";
+            string email = $"Email: {dadosSegurado.ItemArray[3].ToString()}";
+            string cpfCliente = $"CPF: {Cpf.ToString()}";
+            lblDadosCliente.Text = $"{nome}\n{email}\n{cpfCliente}";
+            
+
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)

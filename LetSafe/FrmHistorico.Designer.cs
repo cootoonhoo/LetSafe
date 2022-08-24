@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -37,21 +36,11 @@
             this.dgvApolice = new System.Windows.Forms.DataGridView();
             this.dgvSinistro = new System.Windows.Forms.DataGridView();
             this.dgvEndereco = new System.Windows.Forms.DataGridView();
+            this.lblDadosCliente = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvApolice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSinistro)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEndereco)).BeginInit();
             this.SuspendLayout();
-            // 
-            // listBox1
-            // 
-            this.listBox1.BackColor = System.Drawing.SystemColors.Info;
-            this.listBox1.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 15;
-            this.listBox1.Location = new System.Drawing.Point(25, 38);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(265, 94);
-            this.listBox1.TabIndex = 0;
             // 
             // label1
             // 
@@ -106,6 +95,7 @@
             this.dgvApolice.AllowUserToDeleteRows = false;
             this.dgvApolice.AllowUserToResizeColumns = false;
             this.dgvApolice.AllowUserToResizeRows = false;
+            this.dgvApolice.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvApolice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvApolice.Location = new System.Drawing.Point(25, 294);
             this.dgvApolice.Name = "dgvApolice";
@@ -119,6 +109,7 @@
             this.dgvSinistro.AllowUserToDeleteRows = false;
             this.dgvSinistro.AllowUserToResizeColumns = false;
             this.dgvSinistro.AllowUserToResizeRows = false;
+            this.dgvSinistro.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvSinistro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvSinistro.Location = new System.Drawing.Point(25, 425);
             this.dgvSinistro.Name = "dgvSinistro";
@@ -132,6 +123,7 @@
             this.dgvEndereco.AllowUserToDeleteRows = false;
             this.dgvEndereco.AllowUserToResizeColumns = false;
             this.dgvEndereco.AllowUserToResizeRows = false;
+            this.dgvEndereco.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dgvEndereco.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEndereco.Location = new System.Drawing.Point(25, 179);
             this.dgvEndereco.Name = "dgvEndereco";
@@ -139,11 +131,23 @@
             this.dgvEndereco.Size = new System.Drawing.Size(631, 82);
             this.dgvEndereco.TabIndex = 11;
             // 
+            // lblDadosCliente
+            // 
+            this.lblDadosCliente.AutoSize = true;
+            this.lblDadosCliente.BackColor = System.Drawing.SystemColors.Control;
+            this.lblDadosCliente.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblDadosCliente.Location = new System.Drawing.Point(25, 44);
+            this.lblDadosCliente.Name = "lblDadosCliente";
+            this.lblDadosCliente.Size = new System.Drawing.Size(52, 21);
+            this.lblDadosCliente.TabIndex = 12;
+            this.lblDadosCliente.Text = "dados";
+            // 
             // FrmHistorico
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(789, 564);
+            this.Controls.Add(this.lblDadosCliente);
             this.Controls.Add(this.dgvEndereco);
             this.Controls.Add(this.dgvSinistro);
             this.Controls.Add(this.dgvApolice);
@@ -152,7 +156,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
             this.Name = "FrmHistorico";
             this.Text = "FrmHistorico";
             ((System.ComponentModel.ISupportInitialize)(this.dgvApolice)).EndInit();
@@ -164,8 +167,6 @@
         }
 
         #endregion
-
-        private ListBox listBox1;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -174,5 +175,6 @@
         private DataGridView dgvApolice;
         private DataGridView dgvSinistro;
         private DataGridView dgvEndereco;
+        private Label lblDadosCliente;
     }
 }
