@@ -29,7 +29,7 @@ namespace LetSafe
                 var resultado = MessageBox.Show("Dados enviados com sucesso\nAguarde nosso contato", "Enviando", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 if (resultado == DialogResult.OK)
                 {
-                    Application.Exit();
+                    this.Close();
                 }
             }
 
@@ -46,9 +46,9 @@ namespace LetSafe
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
-            Thread T1 = new Thread(AbrirFormAnterior);
-            T1.SetApartmentState(ApartmentState.STA);
-            T1.Start();
+            //Thread T1 = new Thread(AbrirFormAnterior);
+            //T1.SetApartmentState(ApartmentState.STA);
+            //T1.Start();
             this.Close();
         }
     }

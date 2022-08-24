@@ -94,17 +94,17 @@ namespace LetSafe
         private void lblRealizarCadastro_Click(object sender, EventArgs e)
         {
 
-            Thread T1 = new Thread(DadosContato);
-            T1.SetApartmentState(ApartmentState.STA);
-            T1.Start();
+            FrmProgram.openChild(new FrmDadosContato());
+            //T1.SetApartmentState(ApartmentState.STA);
+            //T1.Start();
             this.Close();
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
-            Thread T1 = new Thread(TelaCliente);
-            T1.SetApartmentState(ApartmentState.STA);
-            T1.Start();
+            //Thread T1 = new Thread(TelaCliente);
+            //T1.SetApartmentState(ApartmentState.STA);
+            //T1.Start();
             this.Close();
         }
 

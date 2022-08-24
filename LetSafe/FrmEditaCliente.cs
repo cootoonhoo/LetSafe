@@ -38,14 +38,14 @@ namespace LetSafe
         private void btnRetornar_Click(object sender, EventArgs e)
         {
             this.Close();
-            t1 = new Thread(AbrirTelaFunc);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            //t1 = new Thread(AbrirTelaFunc);
+            //t1.SetApartmentState(ApartmentState.STA);
+            //t1.Start();
         }
 
         private void AbrirTelaFunc(object obj)
         {
-            Application.Run(new FrmTelaFunc());
+            FrmProgram.openChild(new FrmTelaFunc());
         }
 
         private void btnEditar_Click(object sender, EventArgs e)

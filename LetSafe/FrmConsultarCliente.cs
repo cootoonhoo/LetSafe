@@ -26,10 +26,11 @@ namespace LetSafe
 
             if (DataBaseCon.ClienteCadastrado(cpf))
             {
+                FrmProgram.openChild(new FrmAreaCliente(cpf));
                 this.Close();
-                t1 = new Thread(AbrirFormCliente);
-                t1.SetApartmentState(ApartmentState.STA);
-                t1.Start();
+                //t1 = new Thread(AbrirFormCliente);
+                //t1.SetApartmentState(ApartmentState.STA);
+                //t1.Start();
             }
             else
             {
@@ -40,9 +41,9 @@ namespace LetSafe
         private void btnRetornar_Click(object sender, EventArgs e)
         {
             this.Close();
-            t1 = new Thread(AbrirFormAnterior);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            //t1 = new Thread(AbrirFormAnterior);
+            //t1.SetApartmentState(ApartmentState.STA);
+            //t1.Start();
         }
 
         private void AbrirFormCliente(object obj)

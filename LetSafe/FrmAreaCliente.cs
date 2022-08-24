@@ -30,26 +30,29 @@ namespace LetSafe
 
         private void btnSinistro_Click(object sender, EventArgs e)
         {
+            FrmProgram.openChild(new FrmCadastroSinistro(Cpf));
             this.Close();
-            t1 = new Thread(AbrirFormSinistro);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            //t1 = new Thread(AbrirFormSinistro);
+            //t1.SetApartmentState(ApartmentState.STA);
+            //t1.Start();
         }
 
         private void btnHistorico_Click(object sender, EventArgs e)
         {
+            FrmProgram.openChild((new FrmHistorico(Cpf)));
             this.Close();
-            t1 = new Thread(AbrirFormHistorico);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            //t1 = new Thread(AbrirFormHistorico);
+            //t1.SetApartmentState(ApartmentState.STA);
+            //t1.Start();
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
+            FrmProgram.openChild(new FrmTelaCliente());
             this.Close();
-            t1 = new Thread(AbrirFormTelaCliente);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            //t1 = new Thread(AbrirFormTelaCliente);
+            //t1.SetApartmentState(ApartmentState.STA);
+            //t1.Start();
         }
 
         private void AbrirFormSinistro(object obj)

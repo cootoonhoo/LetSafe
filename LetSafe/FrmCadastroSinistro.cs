@@ -48,10 +48,11 @@ namespace LetSafe
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
+            FrmProgram.openChild(new FrmAreaCliente(Cpf));
             this.Close();
-            t1 = new Thread(AbrirFormAnterior);
-            t1.SetApartmentState(ApartmentState.STA);
-            t1.Start();
+            //t1 = new Thread(AbrirFormAnterior);
+            //t1.SetApartmentState(ApartmentState.STA);
+            //t1.Start();
         }
 
         private void AbrirFormAnterior(object obj)

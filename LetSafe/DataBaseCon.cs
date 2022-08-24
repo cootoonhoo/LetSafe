@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Text.RegularExpressions;
 
 namespace LetSafe
 {
@@ -281,11 +282,11 @@ namespace LetSafe
         public static List<string> ApolicesSegurado(string cpf)
         {
             List<string> apolices = new List<string>();
-
+            
             using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
             {
                 DbCon.Open();
-                var SqlQuerry = $"SELECT id_apolice, nome_produto from Apolice a LEFT JOIN segurado s ON s.id_segurado = a.id_segurado LEFT JOIN Produtos p ON p.id_produto = a.id_produto WHERE cpf = {cpf} AND a.fim_vigencia >= GETDATE();";
+                var SqlQuerry = $"SELECT id_apolice, nome_produto from Apolice a LEFT JOIN segurado s ON s.id_segurado = a.id_segurado LEFT JOIN Produtos p ON p.id_produto = a.id_produto WHERE cpf = '{cpf}' AND a.fim_vigencia >= GETDATE();";
                 using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
                 {
                     DataTable dt = new DataTable();

@@ -21,7 +21,21 @@ namespace LetSafe
         {
             InitializeComponent();
         }
-
+        private void FrmCadastroApolice_Load(object sender, EventArgs e)
+        {
+            cobProduto.Text = "Sim";
+            int i = 1;
+            foreach (var depto in DataBaseCon.TiposProdutos())
+            {
+                TipoProdutos.Add(depto, i);
+                i++;
+            }
+            cobTipoProduto.Items.Clear();
+            foreach (var item in TipoProdutos)
+            {
+                cobTipoProduto.Items.Add(item.Key);
+            }
+        }
         private void txbValorSeguro_Enter(object sender, EventArgs e)
         {
             if (txbValorSeguro.Text == "5000,00" || txbValorSeguro.ForeColor == Color.Red)
@@ -30,7 +44,32 @@ namespace LetSafe
                 txbValorSeguro.ForeColor = Color.Black;
             }
         }
-
+        private void mtbCpf_Enter(object sender, EventArgs e)
+        {
+            if (mtbCpf.Text == "000000000-00")
+            {
+                mtbCpf.ForeColor = Color.Black;
+                mtbCpf.Text = "";
+            }
+            if (mtbCpf.ForeColor == Color.Red)
+            {
+                mtbCpf.ForeColor = Color.Black;
+                mtbCpf.Text = "";
+            }
+        }
+        private void cobProduto_Enter(object sender, EventArgs e)
+        {
+            if (cobProduto.Text.Contains("Não")) cobProduto.Text = "Não";
+            else cobProduto.Text = "Sim";
+        }
+        private void txbValor_Enter(object sender, EventArgs e)
+        {
+            if (txbValor.Text == "5000,00")
+            {
+                txbValor.Text = "";
+                txbValor.ForeColor = Color.Black;
+            }
+        }
         private void txbValorSeguro_Leave(object sender, EventArgs e)
         {
             if (txbValorSeguro.Text == "")
@@ -39,7 +78,33 @@ namespace LetSafe
                 txbValorSeguro.ForeColor = Color.LightGray;
             }
         }
-
+        private void mtbCpf_Leave(object sender, EventArgs e)
+        {
+            if (mtbCpf.Text == "         -")
+            {
+                mtbCpf.ForeColor = Color.LightGray;
+                mtbCpf.Text = "000000000-00";
+            }
+        }
+        private void cobProduto_Leave(object sender, EventArgs e)
+        {
+            if (cobProduto.Text.Contains("Não"))
+            {
+                cobProduto.Text = "Não";
+            }
+            else
+            {
+                cobProduto.Text = "Sim";
+            }
+        }
+        private void txbValor_Leave(object sender, EventArgs e)
+        {
+            if (txbValor.Text == "")
+            {
+                txbValor.Text = "5000,00";
+                txbValor.ForeColor = Color.LightGray;
+            }
+        }
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
             int IdProduto = 0;
@@ -73,6 +138,64 @@ namespace LetSafe
             int IdSegurado = DataBaseCon.IdSeguradoPorCpf(mtbCpf.Text);
             DataBaseCon.CadastrarApolice(Valor, Inicio, Fim, IdSegurado, IdProduto);
             NovoCadastro();
+        }
+        private void btnRetornar_Click(object sender, EventArgs e)
+        {
+            Retornar();
+        }
+        private void btnUltimoCPF_Click(object sender, EventArgs e)
+        {
+            mtbCpf.Text = "";
+            mtbCpf.Text = DataBaseCon.CpfUltimoSegurado();
+            mtbCpf.ForeColor = Color.Black;
+        }
+        private void mtbCpf_TextChanged(object sender, EventArgs e)
+        {
+            if (!rxCpf.IsMatch(mtbCpf.Text))
+            {
+                cobListaProdutos.Items.Clear();
+                return;
+            }
+            if (cobProduto.Text == "Sim")
+            {
+                RespostaSim();
+
+                if (mtbCpf.Text == "000000000-00" || mtbCpf.Text.Contains(" "))
+                {
+                    cobListaProdutos.Text = "CPF inválido";
+                    return;
+                }
+                cobListaProdutos.Items.Clear();
+                List<string> lista = DataBaseCon.ApolicesSegurado(mtbCpf.Text.Replace("-", ""));
+                foreach (var item in lista)
+                    cobListaProdutos.Items.Add(item);
+                if (lista.Count == 0) cobListaProdutos.Items.Add("Nenhum produto encotrado");
+            }
+            else if (cobProduto.Text == "Não")
+            {
+                cobListaProdutos.Items.Clear();
+                RespostaNao();
+            }
+        }
+        private void Retornar()
+        {
+            //T1 = new Thread(FormFunc);
+            //T1.SetApartmentState(ApartmentState.STA);
+            //T1.Start();
+            this.Close();
+        }
+        private void FormFunc()
+        {
+            Application.Run(new FrmTelaFunc());
+        }
+        private void NovoCadastro()
+        {
+            var result = MessageBox.Show("Você deseja fazer mais um cadastro?", "", MessageBoxButtons.YesNo);
+
+            if (result == DialogResult.No)
+            {
+                Retornar();
+            }
         }
         private bool Validacoes()
         {
@@ -108,7 +231,7 @@ namespace LetSafe
             }
             lblCpfSegurado.ForeColor = Color.Black;
 
-            if (!rxCpf.IsMatch(cpf))
+            if (!rxCpf.IsMatch(cpf) || mtbCpf.ForeColor == Color.Gray)
             {
                 lblCpfSegurado.ForeColor = Color.Red;
                 return false;
@@ -150,106 +273,6 @@ namespace LetSafe
 
             return true;
         }
-
-        private void btnRetornar_Click(object sender, EventArgs e)
-        {
-            Retornar();
-        }
-        private void Retornar()
-        {
-            T1 = new Thread(FormFunc);
-            T1.SetApartmentState(ApartmentState.STA);
-            T1.Start();
-            this.Close();
-        }
-        private void FormFunc()
-        {
-            Application.Run(new FrmTelaFunc());
-        }
-        private void NovoCadastro()
-        {
-            var result = MessageBox.Show("Você deseja fazer mais um cadastro?", "", MessageBoxButtons.YesNo);
-
-            if (result == DialogResult.No)
-            {
-                Retornar();
-            }
-        }
-
-        private void FrmCadastroApolice_Load(object sender, EventArgs e)
-        {
-            cobProduto.Text = "Sim";
-            int i = 1;
-            foreach (var depto in DataBaseCon.TiposProdutos())
-            {
-                TipoProdutos.Add(depto, i);
-                i++;
-            }
-            cobTipoProduto.Items.Clear();
-            foreach (var item in TipoProdutos)
-            {
-                cobTipoProduto.Items.Add(item.Key);
-            }
-        }
-
-        private void mtbCpf_Enter(object sender, EventArgs e)
-        {
-            if (mtbCpf.Text == "000000000-00")
-            {
-                mtbCpf.ForeColor = Color.Black;
-                mtbCpf.Text = "";
-            }
-            if (mtbCpf.ForeColor == Color.Red)
-            {
-                mtbCpf.ForeColor = Color.Black;
-                mtbCpf.Text = "";
-            }
-        }
-
-        private void mtbCpf_Leave(object sender, EventArgs e)
-        {
-            if (mtbCpf.Text == "         -")
-            {
-                mtbCpf.ForeColor = Color.LightGray;
-                mtbCpf.Text = "000000000-00";
-            }
-        }
-
-        private void cobProduto_Enter(object sender, EventArgs e)
-        {
-            if (cobProduto.Text.Contains("Não")) cobProduto.Text = "Não";
-            else cobProduto.Text = "Sim";
-        }
-
-        private void cobProduto_Leave(object sender, EventArgs e)
-        {
-            if (cobProduto.Text.Contains("Não"))
-            {
-                cobProduto.Text = "Não";
-            }
-            else
-            {
-                cobProduto.Text = "Sim";
-            }
-        }
-
-        private void txbValor_Enter(object sender, EventArgs e)
-        {
-            if (txbValor.Text == "5000,00")
-            {
-                txbValor.Text = "";
-                txbValor.ForeColor = Color.Black;
-            }
-        }
-
-        private void txbValor_Leave(object sender, EventArgs e)
-        {
-            if (txbValor.Text == "")
-            {
-                txbValor.Text = "5000,00";
-                txbValor.ForeColor = Color.LightGray;
-            }
-        }
         private void RespostaSim()
         {
             cobListaProdutos.Enabled = true;
@@ -263,41 +286,6 @@ namespace LetSafe
             txbNomeProduto.Enabled = true;
             txbValor.Enabled = true;
             cobTipoProduto.Enabled = true;
-        }
-
-        private void btnUltimoCPF_Click(object sender, EventArgs e)
-        {
-            mtbCpf.Text = DataBaseCon.CpfUltimoSegurado();
-            mtbCpf.ForeColor = Color.Black;
-        }
-
-        private void mtbCpf_TextChanged(object sender, EventArgs e)
-        {
-            if (!rxCpf.IsMatch(mtbCpf.Text))
-            {
-                cobListaProdutos.Items.Clear();
-                return;
-            }
-            if (cobProduto.Text == "Sim")
-            {
-                RespostaSim();
-
-                if (mtbCpf.Text == "000000000-00" || mtbCpf.Text.Contains(" "))
-                {
-                    cobListaProdutos.Text = "CPF inválido";
-                    return;
-                }
-                cobListaProdutos.Items.Clear();
-                List<string> lista = DataBaseCon.ApolicesSegurado(mtbCpf.Text.Replace("-", ""));
-                foreach (var item in lista)
-                    cobListaProdutos.Items.Add(item);
-                if (lista.Count == 0) cobListaProdutos.Items.Add("Nenhum produto encotrado");
-            }
-            else if (cobProduto.Text == "Não")
-            {
-                cobListaProdutos.Items.Clear();
-                RespostaNao();
-            }
         }
     }
 }

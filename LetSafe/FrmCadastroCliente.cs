@@ -21,7 +21,7 @@ namespace LetSafe
 
         private void FrmCadastroCliente_Load(object sender, EventArgs e)
         {
-            Estados.Add("Acre(AC)","AC");
+            Estados.Add("Acre(AC)", "AC");
             Estados.Add("Alagoas(AL)", "AL");
             Estados.Add("Amapá(AP)", "AP");
             Estados.Add("Amazonas(AM)", "AM");
@@ -43,15 +43,17 @@ namespace LetSafe
             Estados.Add("Santa Catarina(SC)", "SC");
             Estados.Add("São Paulo(SP)", "RR");
             Estados.Add("Sergipe(SE)", "SE");
-            Estados.Add("Tocantins(TO)", "TO");           
+            Estados.Add("Tocantins(TO)", "TO");
         }
         private void mtbCpf_Click(object sender, EventArgs e)
         {
-            if (mtbCpf.Text == "000000000-00") {
+            if (mtbCpf.Text == "000000000-00")
+            {
                 mtbCpf.ForeColor = Color.Black;
                 mtbCpf.Text = "";
             }
-            if (mtbCpf.ForeColor == Color.Red) {
+            if (mtbCpf.ForeColor == Color.Red)
+            {
                 mtbCpf.ForeColor = Color.Black;
                 mtbCpf.Text = "";
             }
@@ -82,7 +84,8 @@ namespace LetSafe
 
         private void cobEstado_Leave(object sender, EventArgs e)
         {
-            if (!cobEstado.Items.Contains(cobEstado.Text)) {
+            if (!cobEstado.Items.Contains(cobEstado.Text))
+            {
                 cobEstado.Text = "";
             }
         }
@@ -96,15 +99,17 @@ namespace LetSafe
             var result = MessageBox.Show("Você deseja cadastrar uma apolice?", "Teste", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                Thread T1 = new Thread(CadastroApolice);
-                T1.SetApartmentState(ApartmentState.STA);
-                T1.Start();
+                //Thread T1 = new Thread(CadastroApolice);
+                //T1.SetApartmentState(ApartmentState.STA);
+                //T1.Start();
+                FrmProgram.openChild(new FrmCadastroApolice());
                 this.Close();
             }
-            else {
-                Thread T1 = new Thread(Return);
-                T1.SetApartmentState(ApartmentState.STA);
-                T1.Start();
+            else
+            {
+                //Thread T1 = new Thread(Return);
+                //T1.SetApartmentState(ApartmentState.STA);
+                //T1.Start();
                 this.Close();
             }
 
@@ -112,13 +117,14 @@ namespace LetSafe
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
-            Thread T1 = new Thread(Return);
-            T1.SetApartmentState(ApartmentState.STA);
-            T1.Start();
+            //Thread T1 = new Thread(Return);
+            //T1.SetApartmentState(ApartmentState.STA);
+            //T1.Start();
         }
         private void mtbNome_Enter(object sender, EventArgs e)
         {
-            if (mtbNome.ForeColor == Color.Red) {
+            if (mtbNome.ForeColor == Color.Red)
+            {
                 mtbNome.Text = "";
                 mtbNome.ForeColor = Color.Black;
             }
@@ -139,16 +145,19 @@ namespace LetSafe
                 mtbEmail.ForeColor = Color.Black;
                 mtbEmail.Text = "";
             }
-            if (mtbEmail.ForeColor == Color.Red) {
+            if (mtbEmail.ForeColor == Color.Red)
+            {
                 mtbEmail.ForeColor = Color.Black;
                 mtbEmail.Text = "";
             }
         }
-        private bool Verificacao() {
+        private bool Verificacao()
+        {
             Regex rxEmail = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
             Regex rxCpf = new Regex(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})");
             bool aux = true;
-            if (String.IsNullOrEmpty(mtbNome.Text)) {
+            if (String.IsNullOrEmpty(mtbNome.Text))
+            {
                 aux = false;
                 mtbNome.ForeColor = Color.Red;
                 mtbNome.Text = "Nome inválido";
@@ -197,7 +206,8 @@ namespace LetSafe
             }
             return aux;
         }
-        private void CadastrarDadosNoBanco() {
+        private void CadastrarDadosNoBanco()
+        {
             string nome, cpf, email;
             nome = mtbNome.Text;
             cpf = mtbCpf.Text;
@@ -216,16 +226,19 @@ namespace LetSafe
 
             DataBaseCon.CadastrarEndereco(logradouro, numero, complemento, bairro, cidade, estado, cep);
         }
-        private void Return() {
+        private void Return()
+        {
             Application.Run(new FrmTelaFunc());
         }
-        private void CadastroApolice() {
+        private void CadastroApolice()
+        {
             Application.Run(new FrmCadastroApolice());
         }
 
         private void mtbLogradouro_Enter(object sender, EventArgs e)
         {
-            if (mtbLogradouro.ForeColor == Color.Red) {
+            if (mtbLogradouro.ForeColor == Color.Red)
+            {
                 mtbLogradouro.Text = "";
                 mtbLogradouro.ForeColor = Color.Black;
             }
@@ -233,7 +246,8 @@ namespace LetSafe
 
         private void mtbNumero_Enter(object sender, EventArgs e)
         {
-            if (mtbNumero.ForeColor == Color.Red) {
+            if (mtbNumero.ForeColor == Color.Red)
+            {
                 mtbNumero.Text = "";
                 mtbNumero.ForeColor = Color.Black;
             }
