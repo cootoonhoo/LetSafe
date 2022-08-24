@@ -14,6 +14,7 @@ namespace LetSafe
 {
     public partial class FrmCadastroApolice : Form
     {
+        Regex rxCpf = new Regex(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})");
         Dictionary<string, int> TipoProdutos = new Dictionary<string, int>();
         Thread T1;
         public FrmCadastroApolice()
@@ -46,11 +47,8 @@ namespace LetSafe
             else cobProduto.Text = "Sim";
 
             if (!Validacoes())
-            {
-                txbValorSeguro.Text = "Valor inválido";
-                txbValorSeguro.ForeColor = Color.Red;
                 return;
-            }
+
             DateTime Inicio, Fim;
             decimal Valor;
             Valor = Decimal.Parse(txbValorSeguro.Text);
@@ -59,7 +57,12 @@ namespace LetSafe
 
             if (cobProduto.Text == ("Não"))
             {
-                
+                string NomeProduto = txbNomeProduto.Text;
+                decimal ValorBem = Decimal.Parse(txbValor.Text);
+                int IdTipoProd = TipoProdutos[cobTipoProduto.Text];
+
+                DataBaseCon.CadastrarProduto(NomeProduto, ValorBem, IdTipoProd);
+                IdProduto = DataBaseCon.UltimoProdCadastrado();
             }
             else
             {
@@ -67,24 +70,84 @@ namespace LetSafe
                 IdProduto = int.Parse(Numero);
             }
 
-            DataBaseCon.CadastrarApolice(Valor, Inicio, Fim, DataBaseCon.IdSeguradoPorCpf(mtbCpf.Text), IdProduto);
+            int IdSegurado = DataBaseCon.IdSeguradoPorCpf(mtbCpf.Text);
+            DataBaseCon.CadastrarApolice(Valor, Inicio, Fim, IdSegurado, IdProduto);
             NovoCadastro();
         }
         private bool Validacoes()
         {
-            Regex rxCpf = new Regex(@"([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})");
+            
             string cpf = mtbCpf.Text.Replace("-", "");
-            if (!decimal.TryParse(txbValorSeguro.Text, out _)) return false;
-            if (dtpInicio.Value.Date < DateTime.Now.Date) return false;
-            if (dtpFim.Value <= DateTime.Now) return false;
-            if (mtbCpf.Text.Contains(" ")) return false;
-            if (!rxCpf.IsMatch(cpf)) return false;
-            if (cobProduto.Text != "Sim" && cobListaProdutos.Text != "Não") return false;
+
+            if (!decimal.TryParse(txbValorSeguro.Text, out _))
+            {
+                lblValorSeguro.ForeColor = Color.Red;
+                return false;
+            };
+            lblValorSeguro.ForeColor = Color.Black;
+
+            if (dtpInicio.Value.Date < DateTime.Now.Date)
+            {
+                lblInicioVigencia.ForeColor = Color.Red;
+                return false;
+            }
+            lblInicioVigencia.ForeColor = Color.Black;
+
+            if (dtpFim.Value <= DateTime.Now)
+            {
+                lblFimVigencia.ForeColor = Color.Red;
+                return false;
+            }
+            lblFimVigencia.ForeColor = Color.Black;
+
+
+            if (mtbCpf.Text.Contains(" "))
+            {
+                lblCpfSegurado.ForeColor = Color.Red;
+                return false;
+            }
+            lblCpfSegurado.ForeColor = Color.Black;
+
+            if (!rxCpf.IsMatch(cpf))
+            {
+                lblCpfSegurado.ForeColor = Color.Red;
+                return false;
+            }
+            lblCpfSegurado.ForeColor = Color.Black;
+
+            if (cobProduto.Text != "Sim" && cobProduto.Text != "Não")
+            {
+                lblPossiuProd.ForeColor = Color.Red;
+                return false;
+            }
+            lblPossiuProd.ForeColor = Color.Black;
+            
+            lblSelectProduto.ForeColor = Color.Black;
             if (cobProduto.Text == "Não")
             {
-                if (!decimal.TryParse(txbValor.Text, out _)) return false;
-                if (!TipoProdutos.ContainsKey(cobTipoProduto.Text)) return false;
+                if (!decimal.TryParse(txbValor.Text, out _))
+                {
+
+                    lblValor.ForeColor = Color.Red;
+                    return false;
+                }
+                lblValor.ForeColor = Color.Black;
+
+                if (!TipoProdutos.ContainsKey(cobTipoProduto.Text))
+                {
+                    lblTipoProduto.ForeColor = Color.Red;
+                    return false;
+                }
+                lblTipoProduto.ForeColor = Color.Black;
             }
+            else {
+                if (cobListaProdutos.Text == "CPF inválido" || cobListaProdutos.Items.Contains("Nenhum produto encontrado"))
+                {
+                    lblSelectProduto.ForeColor = Color.Red;
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -115,6 +178,7 @@ namespace LetSafe
 
         private void FrmCadastroApolice_Load(object sender, EventArgs e)
         {
+            cobProduto.Text = "Sim";
             int i = 1;
             foreach (var depto in DataBaseCon.TiposProdutos())
             {
@@ -201,8 +265,19 @@ namespace LetSafe
             cobTipoProduto.Enabled = true;
         }
 
-        private void cobProduto_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnUltimoCPF_Click(object sender, EventArgs e)
         {
+            mtbCpf.Text = DataBaseCon.CpfUltimoSegurado();
+            mtbCpf.ForeColor = Color.Black;
+        }
+
+        private void mtbCpf_TextChanged(object sender, EventArgs e)
+        {
+            if (!rxCpf.IsMatch(mtbCpf.Text))
+            {
+                cobListaProdutos.Items.Clear();
+                return;
+            }
             if (cobProduto.Text == "Sim")
             {
                 RespostaSim();
@@ -220,6 +295,7 @@ namespace LetSafe
             }
             else if (cobProduto.Text == "Não")
             {
+                cobListaProdutos.Items.Clear();
                 RespostaNao();
             }
         }

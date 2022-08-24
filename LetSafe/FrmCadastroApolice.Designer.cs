@@ -48,6 +48,7 @@
             this.txbNomeProduto = new System.Windows.Forms.TextBox();
             this.cobTipoProduto = new System.Windows.Forms.ComboBox();
             this.cobListaProdutos = new System.Windows.Forms.ComboBox();
+            this.btnUltimoCPF = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblValorSeguro
@@ -153,11 +154,13 @@
             this.mtbCpf.Size = new System.Drawing.Size(200, 23);
             this.mtbCpf.TabIndex = 12;
             this.mtbCpf.Text = "00000000000";
+            this.mtbCpf.TextChanged += new System.EventHandler(this.mtbCpf_TextChanged);
             this.mtbCpf.Enter += new System.EventHandler(this.mtbCpf_Enter);
             this.mtbCpf.Leave += new System.EventHandler(this.mtbCpf_Leave);
             // 
             // cobProduto
             // 
+            this.cobProduto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobProduto.FormattingEnabled = true;
             this.cobProduto.ImeMode = System.Windows.Forms.ImeMode.Close;
             this.cobProduto.Items.AddRange(new object[] {
@@ -167,7 +170,6 @@
             this.cobProduto.Name = "cobProduto";
             this.cobProduto.Size = new System.Drawing.Size(200, 23);
             this.cobProduto.TabIndex = 13;
-            this.cobProduto.SelectedIndexChanged += new System.EventHandler(this.cobProduto_SelectedIndexChanged);
             this.cobProduto.Enter += new System.EventHandler(this.cobProduto_Enter);
             this.cobProduto.Leave += new System.EventHandler(this.cobProduto_Leave);
             // 
@@ -244,6 +246,8 @@
             // 
             // cobTipoProduto
             // 
+            this.cobTipoProduto.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.cobTipoProduto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobTipoProduto.Enabled = false;
             this.cobTipoProduto.FormattingEnabled = true;
             this.cobTipoProduto.ImeMode = System.Windows.Forms.ImeMode.Close;
@@ -257,6 +261,7 @@
             // 
             // cobListaProdutos
             // 
+            this.cobListaProdutos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cobListaProdutos.FormattingEnabled = true;
             this.cobListaProdutos.ImeMode = System.Windows.Forms.ImeMode.Close;
             this.cobListaProdutos.Location = new System.Drawing.Point(125, 191);
@@ -264,11 +269,22 @@
             this.cobListaProdutos.Size = new System.Drawing.Size(200, 23);
             this.cobListaProdutos.TabIndex = 23;
             // 
+            // btnUltimoCPF
+            // 
+            this.btnUltimoCPF.Location = new System.Drawing.Point(18, 372);
+            this.btnUltimoCPF.Name = "btnUltimoCPF";
+            this.btnUltimoCPF.Size = new System.Drawing.Size(94, 39);
+            this.btnUltimoCPF.TabIndex = 24;
+            this.btnUltimoCPF.Text = "Resgatar ultimo CPF";
+            this.btnUltimoCPF.UseVisualStyleBackColor = true;
+            this.btnUltimoCPF.Click += new System.EventHandler(this.btnUltimoCPF_Click);
+            // 
             // FrmCadastroApolice
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(355, 423);
+            this.Controls.Add(this.btnUltimoCPF);
             this.Controls.Add(this.cobListaProdutos);
             this.Controls.Add(this.cobTipoProduto);
             this.Controls.Add(this.txbNomeProduto);
@@ -320,5 +336,6 @@
         private TextBox txbNomeProduto;
         private ComboBox cobTipoProduto;
         private ComboBox cobListaProdutos;
+        private Button btnUltimoCPF;
     }
 }
