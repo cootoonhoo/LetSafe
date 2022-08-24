@@ -34,6 +34,7 @@ namespace LetSafe
             cbbApolices.DataSource = DataBaseCon.ConsultaApolicesSegurados(Cpf);
             cbbApolices.DisplayMember = "nome_produto";
             cbbApolices.ValueMember = "id_apolice";
+            
 
 
 
@@ -55,38 +56,39 @@ namespace LetSafe
 
         private void AbrirFormAnterior(object obj)
         {
-            Application.Run(new FrmAreaCliente());
+            Application.Run(new FrmAreaCliente(Cpf));
         }
 
         private void btnAbrirSinistro_Click(object sender, EventArgs e)
         {
-
+            CadastrarDadosSinistroNoBanco();
+            MessageBox.Show("Sinistro cadastrado com sucesso", "Cadastro efetuado", MessageBoxButtons.OK);
         }
 
         private void cbbApolices_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cb_TipoProduto.Items.Clear();
+            cbbTipoOcorrencia.Items.Clear();
             switch (cbbApolices.Text)
             {
                 case "Carro":
                 case "Moto":
                 case "Caminhao":
                     string[] veiculos = new string[] { "Acidente", "Dano funcional", "Perda parcial", "Perda total", "Roubo e Furto" };
-                    cb_TipoProduto.Items.AddRange(veiculos);
+                    cbbTipoOcorrencia.Items.AddRange(veiculos);
                     break;
                 case "SeguroAcidente":
                 case "SeguroPatrimonio":
                 case "SeguroViagem":
                 case "SeguroVida":
                     string[] pessoal = new string[] { "Acidente", "Doença", "Morte" };
-                    cb_TipoProduto.Items.AddRange(pessoal);
+                    cbbTipoOcorrencia.Items.AddRange(pessoal);
                     break;
                 case "Apartamento":
                 case "Casa":
                 case "Escritório":
                 case "Fazenda":
                     string[] residencial = new string[] { "Incêndio", "Quebra", "Reparos", "Roubo e Furto" };
-                    cb_TipoProduto.Items.AddRange(residencial);
+                    cbbTipoOcorrencia.Items.AddRange(residencial);
                     break;
                 case "Celular":
                 case "Computador":
@@ -94,14 +96,26 @@ namespace LetSafe
                 case "Smartwatch":
                 case "Tablet":
                     string[] eletronico = new string[] { "Acidente", "Dano funcional", "Quebra", "Reparos", "Roubo e Furto" };
-                    cb_TipoProduto.Items.AddRange(eletronico);
+                    cbbTipoOcorrencia.Items.AddRange(eletronico);
                     break;
             }
 
 
         }
 
+        private void CadastrarDadosSinistroNoBanco()
+        {
+            string tipoOcorrencia = cbbTipoOcorrencia.Text;
+            DateTime dataOcorrencia = DateTime.Parse(dtpDataOcorrencia.Value.ToString());
+            int idApolice = Convert.ToInt32(cbbApolices.SelectedValue);
+            DataBaseCon.CadastrarSInistro(tipoOcorrencia, dataOcorrencia, idApolice);
 
+        }
+
+        private void cb_TipoProduto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

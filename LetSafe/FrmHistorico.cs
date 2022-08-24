@@ -26,6 +26,11 @@ namespace LetSafe
             InitializeComponent();
 
             Cpf = cpf;
+
+            dgvEndereco.DataSource = DataBaseCon.ResgatarEndereco(cpf);
+            dgvApolice.DataSource = DataBaseCon.ResgatarApolice(cpf);
+            dgvSinistro.DataSource = DataBaseCon.ResgatarSinistro(cpf);
+
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
@@ -38,12 +43,9 @@ namespace LetSafe
 
         private void AbrirFormAnterior(object obj)
         {
-            Application.Run(new FrmAreaCliente());
+            Application.Run(new FrmAreaCliente(Cpf));
         }
 
-        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+       
     }
 }

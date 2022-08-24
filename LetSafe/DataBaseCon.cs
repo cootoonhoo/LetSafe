@@ -341,7 +341,6 @@ namespace LetSafe
 
         public static DataTable ConsultaApolicesSegurados(string cpf)
         {
-
             try
             {
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
@@ -349,8 +348,8 @@ namespace LetSafe
                     DbCon.Open();
                     var SqlQuerry = @$"SELECT id_apolice,nome_produto FROM Apolice
 INNER JOIN Produtos on Apolice.id_produto = Produtos.id_produto
-WHERE id_segurado = (SELECT id_segurado FROM segurado WHERE cpf = {cpf}
-                    AND Apolice.fim_vigencia >= GETDATE()); ";
+WHERE id_segurado = (SELECT id_segurado FROM segurado WHERE cpf = {cpf} AND Apolice.fim_vigencia >= GETDATE()
+                    ); ";
                     using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
                     {
                         DataTable dt = new DataTable();
@@ -362,10 +361,114 @@ WHERE id_segurado = (SELECT id_segurado FROM segurado WHERE cpf = {cpf}
             catch (Exception ex)
             {
                 MessageBox.Show("Falha ao conectar\n" + ex.Message);
-                throw ex;
+                return null;
             }
         }
-            
-            
+
+        public static void CadastrarSInistro(string tipoOcorrencia, DateTime dataOcorrencia, int idApolice)
+        {          
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"INSERT INTO Sinistro VALUES (@tipoOcorrencia, @dataOcorrencia, dbo.CalculaFranquia(@idApolice), @idApolice)";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.Parameters.AddWithValue("@tipoOcorrencia", tipoOcorrencia);
+                        comand.Parameters.AddWithValue("@dataOcorrencia", dataOcorrencia);
+                        comand.Parameters.AddWithValue("@idApolice", idApolice);
+                        comand.ExecuteNonQuery();
+                    }
+
+                }
+                MessageBox.Show("Sinistro Cadastrado com sucesso! {Debug}");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
+
+        public static DataTable ResgatarEndereco(string CPF)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = @$"SELECT logradouro AS Rua, numero, bairro, cidade, uf, cep FROM segurado AS seg
+INNER JOIN segurado_endereco AS segend ON seg.id_segurado = segend.id_segurado
+INNER JOIN endereco AS ende ON segend.id_endereco = ende.id_endereco
+WHERE seg.cpf = '{CPF}'";
+                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                    {
+                        DataTable dt = new DataTable();
+                        DaAdpt.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+                return null;
+            }
+        }
+
+        public static DataTable ResgatarApolice(string CPF)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = @$"SELECT nome_produto as Nome, valor_seguro as Preço, valor_bem as Valor, inicio_vigencia as Inicio, fim_vigencia as Fim  FROM Apolice
+INNER JOIN Produtos on Apolice.id_produto = Produtos.id_produto
+WHERE id_segurado = (SELECT id_segurado FROM segurado WHERE cpf = '{CPF}' )";
+                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                    {
+                        DataTable dt = new DataTable();
+                        DaAdpt.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+                return null;
+            }
+        }
+
+        public static DataTable ResgatarSinistro(string CPF)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = @$"select s.tipo_ocorrencia as Ocorrencia, s.data_ocorrencia as Data , s.valor_franquia as Valor from Sinistro as s
+INNER JOIN Apolice as a ON s.id_apolice = a.id_apolice
+INNER JOIN segurado as seg ON A.id_segurado = seg.id_segurado
+WHERE cpf = '{CPF}'";
+                    using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                    {
+                        DataTable dt = new DataTable();
+                        DaAdpt.Fill(dt);
+                        return dt;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+                return null;
+            }
+        }
+
+
     }
 }
+//

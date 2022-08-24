@@ -115,6 +115,7 @@
             // 
             // cbDepartamento
             // 
+            this.cbDepartamento.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbDepartamento.FormattingEnabled = true;
             this.cbDepartamento.Items.AddRange(new object[] {
             "Eletrônicos",
@@ -130,6 +131,7 @@
             // 
             // cbProduto
             // 
+            this.cbProduto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbProduto.FormattingEnabled = true;
             this.cbProduto.Location = new System.Drawing.Point(34, 149);
             this.cbProduto.Margin = new System.Windows.Forms.Padding(2);

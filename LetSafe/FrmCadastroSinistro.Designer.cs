@@ -32,13 +32,13 @@
             this.btnAbrirSinistro = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.cb_TipoProduto = new System.Windows.Forms.ComboBox();
+            this.cbbTipoOcorrencia = new System.Windows.Forms.ComboBox();
             this.btnRetornar = new System.Windows.Forms.Button();
             this.frmCadastroApoliceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cbbApolices = new System.Windows.Forms.ComboBox();
+            this.dtpDataOcorrencia = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.frmCadastroApoliceBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,15 +70,6 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Data da ocorrência:";
             // 
-            // maskedTextBox1
-            // 
-            this.maskedTextBox1.Location = new System.Drawing.Point(39, 144);
-            this.maskedTextBox1.Mask = "00/00/0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(159, 23);
-            this.maskedTextBox1.TabIndex = 5;
-            this.maskedTextBox1.ValidatingType = typeof(System.DateTime);
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -98,10 +89,11 @@
             this.label4.TabIndex = 8;
             this.label4.Text = "Registro de Sinistro";
             // 
-            // cb_TipoProduto
+            // cbbTipoOcorrencia
             // 
-            this.cb_TipoProduto.FormattingEnabled = true;
-            this.cb_TipoProduto.Items.AddRange(new object[] {
+            this.cbbTipoOcorrencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbTipoOcorrencia.FormattingEnabled = true;
+            this.cbbTipoOcorrencia.Items.AddRange(new object[] {
             "Acidente",
             "Dano funcional",
             "Doença",
@@ -112,10 +104,11 @@
             "Quebra",
             "Reparos",
             "Roubo e Furto"});
-            this.cb_TipoProduto.Location = new System.Drawing.Point(39, 196);
-            this.cb_TipoProduto.Name = "cb_TipoProduto";
-            this.cb_TipoProduto.Size = new System.Drawing.Size(151, 23);
-            this.cb_TipoProduto.TabIndex = 9;
+            this.cbbTipoOcorrencia.Location = new System.Drawing.Point(39, 196);
+            this.cbbTipoOcorrencia.Name = "cbbTipoOcorrencia";
+            this.cbbTipoOcorrencia.Size = new System.Drawing.Size(151, 23);
+            this.cbbTipoOcorrencia.TabIndex = 9;
+            this.cbbTipoOcorrencia.SelectedIndexChanged += new System.EventHandler(this.cb_TipoProduto_SelectedIndexChanged);
             // 
             // btnRetornar
             // 
@@ -133,25 +126,36 @@
             // 
             // cbbApolices
             // 
+            this.cbbApolices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbApolices.FormattingEnabled = true;
             this.cbbApolices.Location = new System.Drawing.Point(39, 96);
             this.cbbApolices.Margin = new System.Windows.Forms.Padding(2);
             this.cbbApolices.Name = "cbbApolices";
-            this.cbbApolices.Size = new System.Drawing.Size(129, 23);
+            this.cbbApolices.Size = new System.Drawing.Size(151, 23);
             this.cbbApolices.TabIndex = 11;
             this.cbbApolices.SelectedIndexChanged += new System.EventHandler(this.cbbApolices_SelectedIndexChanged);
+            // 
+            // dtpDataOcorrencia
+            // 
+            this.dtpDataOcorrencia.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpDataOcorrencia.Location = new System.Drawing.Point(39, 144);
+            this.dtpDataOcorrencia.MinDate = new System.DateTime(2022, 8, 1, 0, 0, 0, 0);
+            this.dtpDataOcorrencia.Name = "dtpDataOcorrencia";
+            this.dtpDataOcorrencia.Size = new System.Drawing.Size(151, 23);
+            this.dtpDataOcorrencia.TabIndex = 12;
+            this.dtpDataOcorrencia.Value = new System.DateTime(2022, 8, 23, 0, 0, 0, 0);
             // 
             // FrmCadastroSinistro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 450);
+            this.Controls.Add(this.dtpDataOcorrencia);
             this.Controls.Add(this.cbbApolices);
             this.Controls.Add(this.btnRetornar);
-            this.Controls.Add(this.cb_TipoProduto);
+            this.Controls.Add(this.cbbTipoOcorrencia);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.maskedTextBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnAbrirSinistro);
@@ -169,12 +173,12 @@
         private Button btnAbrirSinistro;
         private Label label1;
         private Label label2;
-        private MaskedTextBox maskedTextBox1;
         private Label label3;
         private Label label4;
-        private ComboBox cb_TipoProduto;
+        private ComboBox cbbTipoOcorrencia;
         private Button btnRetornar;
         private BindingSource frmCadastroApoliceBindingSource;
         private ComboBox cbbApolices;
+        private DateTimePicker dtpDataOcorrencia;
     }
 }
