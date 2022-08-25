@@ -1,6 +1,6 @@
 ﻿namespace LetSafe
 {
-    partial class FrmEditaCliente
+    partial class FrmClientePorCpf
     {
         /// <summary>
         /// Required designer variable.

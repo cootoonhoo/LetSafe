@@ -10,11 +10,11 @@ using System.Windows.Forms;
 
 namespace LetSafe
 {
-    public partial class FrmEditaCliente : Form
+    public partial class FrmClientePorCpf : Form
     {
         Thread t1;
 
-        public FrmEditaCliente()
+        public FrmClientePorCpf()
         {
             InitializeComponent();
         }
@@ -50,17 +50,27 @@ namespace LetSafe
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            //criar função para update de dados
+            var cpf = mtbCpf.Text.Replace("-", "");
+
+            FrmProgram.openChild(new FrmUpdateCliente(cpf));
         }
 
         private void btnExcluir_Click(object sender, EventArgs e)
         {
-            var cpf = mtbCpf.Text.ToString();
+            var cpf = mtbCpf.Text.Replace("-", "");
             var msgAlerta = MessageBox.Show("Deseja mesmo excluir este cliente?", "Alerta!!", MessageBoxButtons.YesNo);
 
             if (msgAlerta == DialogResult.Yes)
             {
+                int endId = int.Parse(DataBaseCon.UltimoEnderecoCad(cpf));
+                int segId = DataBaseCon.IdSeguradoPorCpf(cpf);
+
+                DataBaseCon.DeletaEndSegurado(segId, endId);
                 DataBaseCon.DeletaCliente(cpf);
+                DataBaseCon.DeletaEndereco(endId);
+
+                MessageBox.Show("Cliente excluido com sucesso!");
+                
             }
         }
     }

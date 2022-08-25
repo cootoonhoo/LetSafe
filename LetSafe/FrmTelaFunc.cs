@@ -71,7 +71,7 @@ namespace LetSafe
 
         private void AbrirFormEditaCliente(object obj)
         {
-            Application.Run(new FrmEditaCliente());
+            Application.Run(new FrmClientePorCpf());
         }
 
         private void AbrirFormRelatorio(object obj)

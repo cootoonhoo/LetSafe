@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Text.RegularExpressions;
+using System.Drawing;
 
 namespace LetSafe
 {
@@ -132,6 +133,10 @@ namespace LetSafe
                 {
                     DbCon.Open();
                     var SqlQuerry = $"DELETE FROM segurado WHERE cpf = {cpf}";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.ExecuteNonQuery();
+                    }
                 }
             }
             catch (Exception ex)
@@ -147,12 +152,15 @@ namespace LetSafe
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
                 {
                     DbCon.Open();
-                    var SqlQuerry = $"UPDATE segurado SET (@nome, @cpf, @email, 1) WHERE cpf = {antigoCpf}";
+                    var SqlQuerry = $"UPDATE segurado SET " +
+                        $"nome = '{nome}', " +
+                        $"cpf = '{novoCpf}', " +
+                        $"email = '{email}', " +
+                        $"Ativo = 1 " +
+                        $"WHERE cpf = {antigoCpf}";
+
                     using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
                     {
-                        comand.Parameters.AddWithValue("@nome", nome);
-                        comand.Parameters.AddWithValue("@cpf", novoCpf);
-                        comand.Parameters.AddWithValue("@email", email);
                         comand.ExecuteNonQuery();
                     }
 
@@ -166,23 +174,25 @@ namespace LetSafe
             }
         }
 
-        public static void EditaEndereço(string logradouro, int numero, string complemento, string bairro, string cidade, string uf, string cep)
+        public static void EditaEndereço(int id, string logradouro, int numero, string complemento, string bairro, string cidade, string uf, string cep)
         {
             try
             {
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
                 {
                     DbCon.Open();
-                    var SqlQuerry = $"UPDATE endereco SET (@logradouro, @numero, @complemento, @bairro, @cidade, @uf, @cep)";
+                    var SqlQuerry = $"UPDATE endereco SET " +
+                        $"logradouro = '{logradouro}', " +
+                        $"numero = {numero}, " +
+                        $"complemento = '{complemento}', " +
+                        $"bairro = '{bairro}', " +
+                        $"cidade = '{cidade}', " +
+                        $"uf = '{uf}', " +
+                        $"cep = '{cep}' " +
+                        $"WHERE id_endereco = {id}";
+
                     using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
                     {
-                        comand.Parameters.AddWithValue("@logradouro", logradouro);
-                        comand.Parameters.AddWithValue("@numero", numero);
-                        comand.Parameters.AddWithValue("@complemento", complemento);
-                        comand.Parameters.AddWithValue("@bairro", bairro);
-                        comand.Parameters.AddWithValue("@cidade", cidade);
-                        comand.Parameters.AddWithValue("@uf", uf);
-                        comand.Parameters.AddWithValue("@cep", cep);
                         comand.ExecuteNonQuery();
                     }
                 }
@@ -282,7 +292,7 @@ namespace LetSafe
         public static List<string> ApolicesSegurado(string cpf)
         {
             List<string> apolices = new List<string>();
-            
+
             using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
             {
                 DbCon.Open();
@@ -294,16 +304,17 @@ namespace LetSafe
 
                     int numApolices = dt.Rows.Count;
 
-                    for (int i = 0; i < numApolices; i++ )
+                    for (int i = 0; i < numApolices; i++)
                     {
                         apolices.Add($"{dt.Rows[i][0]} - {dt.Rows[i][1]}");
                     }
 
-                    return apolices;                    
+                    return apolices;
                 }
             }
         }
-        public static List<string> TiposProdutos() {
+        public static List<string> TiposProdutos()
+        {
             List<string> TiposProds = new List<string>();
 
             using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
@@ -326,7 +337,8 @@ namespace LetSafe
                 }
             }
         }
-        public static int UltimoProdCadastrado() {
+        public static int UltimoProdCadastrado()
+        {
             using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
             {
                 DbCon.Open();
@@ -367,7 +379,7 @@ WHERE id_segurado = (SELECT id_segurado FROM segurado WHERE cpf = {cpf} AND Apol
         }
 
         public static void CadastrarSInistro(string tipoOcorrencia, DateTime dataOcorrencia, int idApolice)
-        {          
+        {
             try
             {
                 using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
@@ -531,8 +543,109 @@ WHERE cpf = '{CPF}'";
             }
         }
 
+        public static string UltimoEnderecoCad(string cpf)
+        {
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = @$"SELECT e.id_endereco
+FROM segurado s
+LEFT JOIN (SELECT id_segurado, max(id_segurado_endereco) as max_id FROM segurado_endereco GROUP BY id_segurado) see on see.id_segurado = s.id_segurado
+LEFT JOIN segurado_endereco se on se.id_segurado_endereco = see.max_id
+LEFT JOIN endereco e on e.id_endereco = se.id_endereco
+WHERE s.cpf = {cpf}";
 
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+                    return (dt.Rows[0][0].ToString());
 
+                }
+            }
+        }
+
+        public static int UltimoEnderecoCadastrado()
+        {
+            using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+            {
+                DbCon.Open();
+                var SqlQuerry = @$"SELECT max(id_endereco) as ultimoEnd FROM endereco";
+
+                using (SqlDataAdapter DaAdpt = new SqlDataAdapter(SqlQuerry, DbCon))
+                {
+                    DataTable dt = new DataTable();
+                    DaAdpt.Fill(dt);
+                    return int.Parse(dt.Rows[0][0].ToString());
+
+                }
+            }
+        }
+
+        public static void AssociaEndSegurado(int idSegurado, int idEndereco)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"INSERT INTO segurado_endereco (id_segurado, id_endereco) VALUES (@IdSegurado, @IdEndereco);";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.Parameters.AddWithValue("@IdSegurado", idSegurado);
+                        comand.Parameters.AddWithValue("@IdEndereco", idEndereco);
+
+                        comand.ExecuteNonQuery();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
+
+        public static void DeletaEndereco(int id)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"DELETE FROM endereco WHERE id_endereco = {id}";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
+
+        public static void DeletaEndSegurado(int idSegurado, int idEndereco)
+        {
+            try
+            {
+                using (SqlConnection DbCon = new SqlConnection(DataBaseCon.StrCon))
+                {
+                    DbCon.Open();
+                    var SqlQuerry = $"DELETE FROM segurado_endereco WHERE id_endereco = {idEndereco} AND id_segurado = {idSegurado};";
+                    using (SqlCommand comand = new SqlCommand(SqlQuerry, DbCon))
+                    {
+                        comand.ExecuteNonQuery();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Falha ao conectar\n" + ex.Message);
+            }
+        }
     }
 }
 //

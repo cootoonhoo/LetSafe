@@ -77,7 +77,7 @@ namespace LetSafe
 
         private void btnConsultaCPF_Click(object sender, EventArgs e)
         {
-            openChild(new FrmEditaCliente());
+            openChild(new FrmClientePorCpf());
         }
 
         private void btnCadastrarApolice_Click(object sender, EventArgs e)

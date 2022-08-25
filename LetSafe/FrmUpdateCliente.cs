@@ -11,15 +11,25 @@ using System.Windows.Forms;
 
 namespace LetSafe
 {
-    public partial class FrmCadastroCliente : Form
+    public partial class FrmUpdateCliente : Form
     {
         Dictionary<String, String> Estados = new();
-        public FrmCadastroCliente()
+
+        public string Cpf { get; set; }
+
+        public FrmUpdateCliente()
         {
             InitializeComponent();
         }
 
-        private void FrmCadastroCliente_Load(object sender, EventArgs e)
+        public FrmUpdateCliente(string cpf)
+        {
+            InitializeComponent();
+
+            Cpf = cpf.Replace("-", "");
+        }
+
+        private void FrmUpdateCliente_Load(object sender, EventArgs e)
         {
             Estados.Add("Acre(AC)", "AC");
             Estados.Add("Alagoas(AL)", "AL");
@@ -92,33 +102,28 @@ namespace LetSafe
             }
         }
 
-        private void btnEnviar_Click(object sender, EventArgs e)
+        private void btnAtualizar_Click(object sender, EventArgs e)
         {
             bool validacao = Verificacao();
             if (!validacao) return;
             CadastrarDadosNoBanco();
 
-            int idSegurado = DataBaseCon.IdUltimoSegurado();
-            int idEndereco = DataBaseCon.UltimoEnderecoCadastrado();
-
-            DataBaseCon.AssociaEndSegurado(idSegurado, idEndereco);
-
-            var result = MessageBox.Show("Você deseja cadastrar uma apolice?", "Teste", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                //Thread T1 = new Thread(CadastroApolice);
-                //T1.SetApartmentState(ApartmentState.STA);
-                //T1.Start();
-                FrmProgram.openChild(new FrmCadastroApolice());
-                this.Close();
-            }
-            else
-            {
-                //Thread T1 = new Thread(Return);
-                //T1.SetApartmentState(ApartmentState.STA);
-                //T1.Start();
-                this.Close();
-            }
+            //var result = MessageBox.Show("Você deseja cadastrar uma apolice?", "Teste", MessageBoxButtons.YesNo);
+            //if (result == DialogResult.Yes)
+            //{
+            //    //Thread T1 = new Thread(CadastroApolice);
+            //    //T1.SetApartmentState(ApartmentState.STA);
+            //    //T1.Start();
+            //    FrmProgram.openChild(new FrmCadastroApolice());
+            //    this.Close();
+            //}
+            //else
+            //{
+            //    //Thread T1 = new Thread(Return);
+            //    //T1.SetApartmentState(ApartmentState.STA);
+            //    //T1.Start();
+            //    this.Close();
+            //}
 
         }
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -219,10 +224,10 @@ namespace LetSafe
             nome = mtbNome.Text;
             cpf = mtbCpf.Text.Replace("-", "");
             email = mtbEmail.Text;
-            DataBaseCon.CadastrarSegurado(nome, cpf, email);
-
+            
             string logradouro, complemento, bairro, cidade, estado, cep;
             int numero = int.Parse(mtbNumero.Text);
+            int idEndereco = int.Parse(DataBaseCon.UltimoEnderecoCad(Cpf));
 
             logradouro = mtbLogradouro.Text;
             complemento = mtbComplemento.Text;
@@ -231,7 +236,8 @@ namespace LetSafe
             cep = mtbCep.Text;
             estado = Estados[cobEstado.Text];
 
-            DataBaseCon.CadastrarEndereco(logradouro, numero, complemento, bairro, cidade, estado, cep);
+            DataBaseCon.EditaSegurado(nome, cpf, email, Cpf);
+            DataBaseCon.EditaEndereço(idEndereco, logradouro, numero, complemento, bairro, cidade, estado, cep);
         }
         private void Return()
         {
