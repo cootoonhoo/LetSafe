@@ -16,6 +16,7 @@ namespace LetSafe
         {
             InitializeComponent();
             CustomizeDesing();
+            
         }
         private void CustomizeDesing()
         {
@@ -108,6 +109,11 @@ namespace LetSafe
             {
                 this.Close();
             }
+        }
+
+        private void FrmProgram_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

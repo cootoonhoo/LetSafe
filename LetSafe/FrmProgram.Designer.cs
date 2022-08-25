@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProgram));
             this.panelLogo = new System.Windows.Forms.Panel();
             this.lblLogo = new System.Windows.Forms.Label();
             this.btnFuncionario = new System.Windows.Forms.Button();
@@ -316,8 +317,10 @@
             this.Controls.Add(panelChildForm);
             this.Controls.Add(this.panelSideMenu);
             this.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FrmProgram";
-            this.Text = "FrmProgram";
+            this.Text = "LetSafe";
+            this.Load += new System.EventHandler(this.FrmProgram_Load);
             this.panelLogo.ResumeLayout(false);
             this.panelLogo.PerformLayout();
             this.panelFuncionarioSubMenu.ResumeLayout(false);
@@ -344,9 +347,6 @@
         private Panel panelClienteSubMenu;
         private Button btnOrcamento;
         private Button btnConsultarCPF;
-
-        private void Tanana() { }
-
         private static Panel panelChildForm;
     }
 }
