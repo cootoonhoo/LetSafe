@@ -36,7 +36,7 @@ namespace LetSafe
         private void btnGerar_Click(object sender, EventArgs e)
         {
             var Relatorio = cobRelatorios.Text;
-            dgvRelatorio.DataSource = DataBaseCon.ResgatarRelatorio(Relatorios[Relatorio][0], Relatorios[Relatorio][1]);            
+            GerarRelatorio(Relatorio);
         }
 
         private void btnRetornar_Click(object sender, EventArgs e)
@@ -50,6 +50,15 @@ namespace LetSafe
         private void AbrirFormAnterior(object obj)
         {
             Application.Run(new FrmTelaFunc());
+        }
+        private async Task GerarRelatorio(string Relatorio) {
+            lblFeedbackBD.Text = "Gerando relatório, aguarde...";
+            lblFeedbackBD.ForeColor = Color.Red;
+            lblFeedbackBD.Visible = true;
+            await Task.Delay(TimeSpan.FromSeconds(2));
+            lblFeedbackBD.ForeColor = Color.Green;
+            dgvRelatorio.DataSource = DataBaseCon.ResgatarRelatorio(Relatorios[Relatorio][0], Relatorios[Relatorio][1]);
+            lblFeedbackBD.Text = "Relatório gerado com sucesso!";
         }
     }
 }
