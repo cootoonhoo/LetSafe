@@ -31,13 +31,15 @@
             this.btnSinistro = new System.Windows.Forms.Button();
             this.btnHistorico = new System.Windows.Forms.Button();
             this.btnRetornar = new System.Windows.Forms.Button();
+            this.lblCarregandoHistórico = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnSinistro
             // 
-            this.btnSinistro.Location = new System.Drawing.Point(314, 168);
+            this.btnSinistro.Location = new System.Drawing.Point(220, 101);
+            this.btnSinistro.Margin = new System.Windows.Forms.Padding(2);
             this.btnSinistro.Name = "btnSinistro";
-            this.btnSinistro.Size = new System.Drawing.Size(157, 34);
+            this.btnSinistro.Size = new System.Drawing.Size(110, 20);
             this.btnSinistro.TabIndex = 0;
             this.btnSinistro.Text = "Abrir sinistro";
             this.btnSinistro.UseVisualStyleBackColor = true;
@@ -45,9 +47,10 @@
             // 
             // btnHistorico
             // 
-            this.btnHistorico.Location = new System.Drawing.Point(314, 234);
+            this.btnHistorico.Location = new System.Drawing.Point(220, 140);
+            this.btnHistorico.Margin = new System.Windows.Forms.Padding(2);
             this.btnHistorico.Name = "btnHistorico";
-            this.btnHistorico.Size = new System.Drawing.Size(157, 34);
+            this.btnHistorico.Size = new System.Drawing.Size(110, 20);
             this.btnHistorico.TabIndex = 1;
             this.btnHistorico.Text = "Historico";
             this.btnHistorico.UseVisualStyleBackColor = true;
@@ -55,26 +58,38 @@
             // 
             // btnRetornar
             // 
-            this.btnRetornar.Location = new System.Drawing.Point(314, 297);
+            this.btnRetornar.Location = new System.Drawing.Point(220, 178);
+            this.btnRetornar.Margin = new System.Windows.Forms.Padding(2);
             this.btnRetornar.Name = "btnRetornar";
-            this.btnRetornar.Size = new System.Drawing.Size(157, 34);
+            this.btnRetornar.Size = new System.Drawing.Size(110, 20);
             this.btnRetornar.TabIndex = 2;
             this.btnRetornar.Text = "Retornar";
             this.btnRetornar.UseVisualStyleBackColor = true;
             this.btnRetornar.Click += new System.EventHandler(this.btnRetornar_Click);
             // 
+            // lblCarregandoHistórico
+            // 
+            this.lblCarregandoHistórico.AutoSize = true;
+            this.lblCarregandoHistórico.Location = new System.Drawing.Point(243, 219);
+            this.lblCarregandoHistórico.Name = "lblCarregandoHistórico";
+            this.lblCarregandoHistórico.Size = new System.Drawing.Size(0, 15);
+            this.lblCarregandoHistórico.TabIndex = 3;
+            // 
             // FrmAreaCliente
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(560, 270);
+            this.Controls.Add(this.lblCarregandoHistórico);
             this.Controls.Add(this.btnRetornar);
             this.Controls.Add(this.btnHistorico);
             this.Controls.Add(this.btnSinistro);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmAreaCliente";
             this.Text = "Área do cliente";
             this.Load += new System.EventHandler(this.FrmAreaCliente_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -83,5 +98,6 @@
         private Button btnSinistro;
         private Button btnHistorico;
         private Button btnRetornar;
+        private Label lblCarregandoHistórico;
     }
 }

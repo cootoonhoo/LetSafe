@@ -37,8 +37,14 @@ namespace LetSafe
             //t1.Start();
         }
 
-        private void btnHistorico_Click(object sender, EventArgs e)
+        private async void btnHistorico_Click(object sender, EventArgs e)
         {
+            lblCarregandoHistórico.Text = "Carregando histórico ... Aguarde";
+            lblCarregandoHistórico.ForeColor = Color.Red;
+            await Task.Delay(TimeSpan.FromSeconds(2));
+            lblCarregandoHistórico.Text = "Carregado com sucesso";
+            lblCarregandoHistórico.ForeColor = Color.Green;
+            await Task.Delay(TimeSpan.FromSeconds(1));           
             FrmProgram.openChild((new FrmHistorico(Cpf)));
             this.Close();
             //t1 = new Thread(AbrirFormHistorico);
@@ -48,7 +54,7 @@ namespace LetSafe
 
         private void btnRetornar_Click(object sender, EventArgs e)
         {
-            FrmProgram.openChild(new FrmTelaCliente());
+            FrmProgram.openChild(new FrmConsultarCliente());
             this.Close();
             //t1 = new Thread(AbrirFormTelaCliente);
             //t1.SetApartmentState(ApartmentState.STA);

@@ -17,7 +17,7 @@ namespace LetSafe
         public FrmOrcamento()
         {
             InitializeComponent();
-            txbValorProduto.Text = " ";
+            txbValorProduto.Text = null;
         }
 
         private void cbDepartamento_SelectedIndexChanged(object sender, EventArgs e)
@@ -43,6 +43,8 @@ namespace LetSafe
                     cbProduto.Items.AddRange(produtosPessoais);
                     break;
             }
+
+            btnRealizarOrcamento.Enabled = false;
 
         }
 
@@ -110,12 +112,28 @@ namespace LetSafe
 
         private void FrmOrcamento_Load(object sender, EventArgs e)
         {
+            btnRealizarOrcamento.Enabled = false;
 
         }
 
         private void txbValorProduto_TextChanged(object sender, EventArgs e)
         {
 
+            if(!String.IsNullOrEmpty(cbProduto.Text))
+            {
+                btnRealizarOrcamento.Enabled = true;
+            }
+
+        }
+
+        private void cbProduto_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(txbValorProduto.Text))
+            {
+                btnRealizarOrcamento.Enabled = false;
+            }
+            else
+                btnRealizarOrcamento.Enabled = true;
         }
     }
 }

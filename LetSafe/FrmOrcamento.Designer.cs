@@ -97,7 +97,7 @@
             this.btnRealizarOrcamento.Location = new System.Drawing.Point(218, 433);
             this.btnRealizarOrcamento.Margin = new System.Windows.Forms.Padding(2);
             this.btnRealizarOrcamento.Name = "btnRealizarOrcamento";
-            this.btnRealizarOrcamento.Size = new System.Drawing.Size(122, 20);
+            this.btnRealizarOrcamento.Size = new System.Drawing.Size(177, 38);
             this.btnRealizarOrcamento.TabIndex = 8;
             this.btnRealizarOrcamento.Text = "Realizar Orçamento";
             this.btnRealizarOrcamento.UseVisualStyleBackColor = true;
@@ -138,6 +138,7 @@
             this.cbProduto.Name = "cbProduto";
             this.cbProduto.Size = new System.Drawing.Size(148, 23);
             this.cbProduto.TabIndex = 12;
+            this.cbProduto.SelectedIndexChanged += new System.EventHandler(this.cbProduto_SelectedIndexChanged);
             // 
             // txbValorProduto
             // 
@@ -155,7 +156,7 @@
             this.btnRetornar.Location = new System.Drawing.Point(48, 433);
             this.btnRetornar.Margin = new System.Windows.Forms.Padding(2);
             this.btnRetornar.Name = "btnRetornar";
-            this.btnRetornar.Size = new System.Drawing.Size(122, 20);
+            this.btnRetornar.Size = new System.Drawing.Size(122, 38);
             this.btnRetornar.TabIndex = 15;
             this.btnRetornar.Text = "Retornar";
             this.btnRetornar.UseVisualStyleBackColor = true;

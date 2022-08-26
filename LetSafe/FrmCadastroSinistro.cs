@@ -24,6 +24,7 @@ namespace LetSafe
         public FrmCadastroSinistro(string cpf)
         {
             InitializeComponent();
+            btnAbrirSinistro.Enabled = false;
 
             Cpf = cpf;
         }
@@ -100,7 +101,7 @@ namespace LetSafe
                     cbbTipoOcorrencia.Items.AddRange(eletronico);
                     break;
             }
-
+            btnAbrirSinistro.Enabled = false;
 
         }
 
@@ -115,7 +116,7 @@ namespace LetSafe
 
         private void cb_TipoProduto_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            btnAbrirSinistro.Enabled = true;
         }
     }
 
